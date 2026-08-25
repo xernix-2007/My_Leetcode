@@ -17,11 +17,13 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0004-median-of-two-sorted-arrays](https://github.com/xernix-2007/My_Leetcode/tree/master/0004-median-of-two-sorted-arrays) |
 | [0011-container-with-most-water](https://github.com/xernix-2007/My_Leetcode/tree/master/0011-container-with-most-water) |
 | [0189-rotate-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0189-rotate-array) |
+| [3718-smallest-missing-multiple-of-k](https://github.com/xernix-2007/My_Leetcode/tree/master/3718-smallest-missing-multiple-of-k) |
 ## Hash Table
 |  |
 | ------- |
 | [0001-two-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0001-two-sum) |
 | [0003-longest-substring-without-repeating-characters](https://github.com/xernix-2007/My_Leetcode/tree/master/0003-longest-substring-without-repeating-characters) |
+| [3718-smallest-missing-multiple-of-k](https://github.com/xernix-2007/My_Leetcode/tree/master/3718-smallest-missing-multiple-of-k) |
 ## String
 |  |
 | ------- |
