@@ -1,88 +1,52 @@
-# My_Leetcode
-A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)
+# 💻 My LeetCode Journey
 
-<!---LeetCode Topics Start-->
-# LeetCode Topics
-## Math
-|  |
-| ------- |
-| [0002-add-two-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0002-add-two-numbers) |
-| [0007-reverse-integer](https://github.com/xernix-2007/My_Leetcode/tree/master/0007-reverse-integer) |
-| [0009-palindrome-number](https://github.com/xernix-2007/My_Leetcode/tree/master/0009-palindrome-number) |
-| [0189-rotate-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0189-rotate-array) |
-## Array
-|  |
-| ------- |
-| [0001-two-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0001-two-sum) |
-| [0004-median-of-two-sorted-arrays](https://github.com/xernix-2007/My_Leetcode/tree/master/0004-median-of-two-sorted-arrays) |
-| [0011-container-with-most-water](https://github.com/xernix-2007/My_Leetcode/tree/master/0011-container-with-most-water) |
-| [0033-search-in-rotated-sorted-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0033-search-in-rotated-sorted-array) |
-| [0034-find-first-and-last-position-of-element-in-sorted-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0034-find-first-and-last-position-of-element-in-sorted-array) |
-| [0035-search-insert-position](https://github.com/xernix-2007/My_Leetcode/tree/master/0035-search-insert-position) |
-| [0049-group-anagrams](https://github.com/xernix-2007/My_Leetcode/tree/master/0049-group-anagrams) |
-| [0053-maximum-subarray](https://github.com/xernix-2007/My_Leetcode/tree/master/0053-maximum-subarray) |
-| [0121-best-time-to-buy-and-sell-stock](https://github.com/xernix-2007/My_Leetcode/tree/master/0121-best-time-to-buy-and-sell-stock) |
-| [0122-best-time-to-buy-and-sell-stock-ii](https://github.com/xernix-2007/My_Leetcode/tree/master/0122-best-time-to-buy-and-sell-stock-ii) |
-| [0189-rotate-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0189-rotate-array) |
-| [3718-smallest-missing-multiple-of-k](https://github.com/xernix-2007/My_Leetcode/tree/master/3718-smallest-missing-multiple-of-k) |
-## Hash Table
-|  |
-| ------- |
-| [0001-two-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0001-two-sum) |
-| [0003-longest-substring-without-repeating-characters](https://github.com/xernix-2007/My_Leetcode/tree/master/0003-longest-substring-without-repeating-characters) |
-| [0049-group-anagrams](https://github.com/xernix-2007/My_Leetcode/tree/master/0049-group-anagrams) |
-| [3718-smallest-missing-multiple-of-k](https://github.com/xernix-2007/My_Leetcode/tree/master/3718-smallest-missing-multiple-of-k) |
-## String
-|  |
-| ------- |
-| [0003-longest-substring-without-repeating-characters](https://github.com/xernix-2007/My_Leetcode/tree/master/0003-longest-substring-without-repeating-characters) |
-| [0049-group-anagrams](https://github.com/xernix-2007/My_Leetcode/tree/master/0049-group-anagrams) |
-## Sliding Window
-|  |
-| ------- |
-| [0003-longest-substring-without-repeating-characters](https://github.com/xernix-2007/My_Leetcode/tree/master/0003-longest-substring-without-repeating-characters) |
-## Binary Search
-|  |
-| ------- |
-| [0004-median-of-two-sorted-arrays](https://github.com/xernix-2007/My_Leetcode/tree/master/0004-median-of-two-sorted-arrays) |
-| [0033-search-in-rotated-sorted-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0033-search-in-rotated-sorted-array) |
-| [0034-find-first-and-last-position-of-element-in-sorted-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0034-find-first-and-last-position-of-element-in-sorted-array) |
-| [0035-search-insert-position](https://github.com/xernix-2007/My_Leetcode/tree/master/0035-search-insert-position) |
-## Divide and Conquer
-|  |
-| ------- |
-| [0004-median-of-two-sorted-arrays](https://github.com/xernix-2007/My_Leetcode/tree/master/0004-median-of-two-sorted-arrays) |
-| [0053-maximum-subarray](https://github.com/xernix-2007/My_Leetcode/tree/master/0053-maximum-subarray) |
-## Linked List
-|  |
-| ------- |
-| [0002-add-two-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0002-add-two-numbers) |
-| [0021-merge-two-sorted-lists](https://github.com/xernix-2007/My_Leetcode/tree/master/0021-merge-two-sorted-lists) |
-| [0024-swap-nodes-in-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/0024-swap-nodes-in-pairs) |
-## Recursion
-|  |
-| ------- |
-| [0002-add-two-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0002-add-two-numbers) |
-| [0021-merge-two-sorted-lists](https://github.com/xernix-2007/My_Leetcode/tree/master/0021-merge-two-sorted-lists) |
-| [0024-swap-nodes-in-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/0024-swap-nodes-in-pairs) |
-## Two Pointers
-|  |
-| ------- |
-| [0011-container-with-most-water](https://github.com/xernix-2007/My_Leetcode/tree/master/0011-container-with-most-water) |
-| [0189-rotate-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0189-rotate-array) |
-## Greedy
-|  |
-| ------- |
-| [0011-container-with-most-water](https://github.com/xernix-2007/My_Leetcode/tree/master/0011-container-with-most-water) |
-| [0122-best-time-to-buy-and-sell-stock-ii](https://github.com/xernix-2007/My_Leetcode/tree/master/0122-best-time-to-buy-and-sell-stock-ii) |
-## Dynamic Programming
-|  |
-| ------- |
-| [0053-maximum-subarray](https://github.com/xernix-2007/My_Leetcode/tree/master/0053-maximum-subarray) |
-| [0121-best-time-to-buy-and-sell-stock](https://github.com/xernix-2007/My_Leetcode/tree/master/0121-best-time-to-buy-and-sell-stock) |
-| [0122-best-time-to-buy-and-sell-stock-ii](https://github.com/xernix-2007/My_Leetcode/tree/master/0122-best-time-to-buy-and-sell-stock-ii) |
-## Sorting
-|  |
-| ------- |
-| [0049-group-anagrams](https://github.com/xernix-2007/My_Leetcode/tree/master/0049-group-anagrams) |
-<!---LeetCode Topics End-->
+A growing collection of my **LeetCode solutions in C++**, maintained while learning DSA patterns and preparing for coding interviews.
+
+## 🎯 Goal
+
+The purpose of this repository is not just to collect accepted solutions. It is to build pattern recognition and understand **why** a solution works.
+
+## 🧩 Patterns Covered
+
+- Arrays
+- Strings
+- Hash Tables
+- Sliding Window
+- Binary Search
+- Two Pointers
+- Linked Lists
+- Recursion
+- Greedy
+- Dynamic Programming
+- Sorting
+- Divide and Conquer
+- Math
+
+## ⭐ Selected Problems
+
+| Problem | Pattern |
+|---|---|
+| Two Sum | Hash Table |
+| Longest Substring Without Repeating Characters | Sliding Window + Hash Table |
+| Group Anagrams | Hashing + Sorting |
+| Search in Rotated Sorted Array | Binary Search |
+| Find First and Last Position | Binary Search |
+| Container With Most Water | Two Pointers |
+| Maximum Subarray | Dynamic Programming / Kadane |
+| Best Time to Buy and Sell Stock | Dynamic Programming |
+| Add Two Numbers | Linked List |
+| Merge Two Sorted Lists | Linked List |
+| Swap Nodes in Pairs | Linked List |
+| Palindrome Number | Math |
+
+## 🛠️ Language
+
+**C++**
+
+## 📈 Progress
+
+I am continuously expanding this repository as I move from fundamentals toward harder DSA patterns.
+
+> Solve → Understand → Revisit → Optimize
+
+<!-- LeetHub-generated topic index can be maintained below as the repository grows. -->
