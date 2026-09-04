@@ -72,6 +72,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 ## Array
 |  |
 | ------- |
+| [0081-search-in-rotated-sorted-array-ii](https://github.com/xernix-2007/My_Leetcode/tree/master/0081-search-in-rotated-sorted-array-ii) |
 | [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
 ## Hash Table
 |  |
@@ -81,4 +82,8 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
+## Binary Search
+|  |
+| ------- |
+| [0081-search-in-rotated-sorted-array-ii](https://github.com/xernix-2007/My_Leetcode/tree/master/0081-search-in-rotated-sorted-array-ii) |
 <!---LeetCode Topics End-->
