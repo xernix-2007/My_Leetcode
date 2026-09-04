@@ -38,32 +38,35 @@ def pattern(t,q,c):
     return 'Arrays / Implementation'
 def footer(c,d):
     c.saveState(); c.setFont('DejaVu',8.5); c.setFillColor(colors.HexColor('#666666')); c.drawCentredString(W/2,7*mm,f'My_Leetcode • Page {d.page}'); c.restoreState()
+def code_box(code,name,i,short=False):
+    n=code.count('\n')+1
+    if short: fs=9.0 if n<=24 else 8.3 if n<=34 else 7.6
+    else: fs=10.0 if n<=28 else 9.2 if n<=38 else 8.3 if n<=50 else 7.5
+    st=ParagraphStyle(name,fontName='DejaVuMono',fontSize=fs,leading=fs+1.7,leftIndent=5,rightIndent=5,borderWidth=.5,borderPadding=5,borderColor=colors.HexColor('#B8C7D9'),backColor=colors.HexColor('#F5F7FA'))
+    return Preformatted(code,st,maxLineLength=95)
 def main():
     ps=[]
     for f in sorted(ROOT.iterdir(),key=lambda p:p.name):
         if f.is_dir() and re.match(r'^\d{4}-',f.name) and (f/'README.md').exists() and list(f.glob('*.cpp')):
-            t,d,q,e,c=read(f); ai={}
-            af=ROOT/'.ai'/f'{f.name}.json'
+            t,d,q,e,c=read(f); ai={}; af=ROOT/'.ai'/f'{f.name}.json'
             if af.exists():
                 try: ai=json.loads(af.read_text(encoding='utf-8'))
-                except: pass
+                except Exception: pass
             ps.append((t,d,q,e,c,pattern(t,q,c),ai))
     story=[Spacer(1,55*mm),Paragraph('My Leetcode',Cover),Spacer(1,7*mm),Paragraph(f'{len(ps)} solved problems • automatically generated',B),Spacer(1,5*mm),Paragraph('Each problem gets one page with your solution and an AI optimization review.',B),PageBreak()]
     for i,(t,d,q,e,c,p,a) in enumerate(ps):
         story += [Paragraph(t,T),Paragraph(f'Difficulty: {d or "—"} &nbsp;&nbsp; | &nbsp;&nbsp; Pattern: {p}',Meta),Paragraph('Question',S),Paragraph(q or 'See the original LeetCode statement in the problem README.',B)]
         if e: story += [Paragraph('Example',S),Preformatted(e,ParagraphStyle('Ex',fontName='DejaVuMono',fontSize=9.2,leading=11,leftIndent=5))]
-        story += [Paragraph('Your Approach',S),Paragraph('Your repository solution is shown below. The detected pattern is '+p+'.',B),Paragraph('Your Complexity',S)]
-        your='Time: see solution analysis  |  Space: see solution analysis'
-        if a: your=a.get('student_complexity',your)
-        story.append(Paragraph(your,B))
-        lines=c.count('\n')+1; fs=10.0 if lines<=28 else 9.2 if lines<=38 else 8.3 if lines<=50 else 7.5
-        cs=ParagraphStyle(f'YC{i}',fontName='DejaVuMono',fontSize=fs,leading=fs+1.7,leftIndent=5,rightIndent=5,borderWidth=.5,borderPadding=5,borderColor=colors.HexColor('#B8C7D9'),backColor=colors.HexColor('#F5F7FA'))
-        story += [Preformatted(c,cs,maxLineLength=95)]
-        if a:
-            story += [Paragraph('🤖 AI OPTIMIZED SOLUTION',S),Paragraph(f'<b>Verdict:</b> {a.get("verdict","—")} &nbsp;&nbsp; <b>Approach:</b> {a.get("optimal_approach","—")}',B),Paragraph(f'<b>{a.get("optimal_complexity","—")}</b>',B),Paragraph('<b>Why it is better:</b> '+a.get('why_better','—'),B),Paragraph('Optimized C++ Code',S)]
-            oc=a.get('optimized_code',c); ol=oc.count('\n')+1; ofs=9.0 if ol<=24 else 8.3 if ol<=34 else 7.6
-            ocs=ParagraphStyle(f'OC{i}',fontName='DejaVuMono',fontSize=ofs,leading=ofs+1.5,leftIndent=5,rightIndent=5,borderWidth=.5,borderPadding=5,borderColor=colors.HexColor('#A8B8C8'),backColor=colors.HexColor('#F0F4F8'))
-            story += [Preformatted(oc,ocs,maxLineLength=95),Paragraph('<b>Key learning:</b> '+a.get('key_learning','—'),B)]
+        story += [Paragraph('Your Approach',S),Paragraph('Your repository solution is shown below. The detected pattern is '+p+'.',B),Paragraph('Complexity',S),Paragraph(a.get('student_complexity',a.get('optimal_complexity','See AI review below.')) if a else 'See AI review below.',B),code_box(c,f'YC{i}',i)]
+        verdict=a.get('verdict','') if a else ''
+        if verdict == 'ALREADY_OPTIMAL':
+            story += [Paragraph('AI Review',S),Paragraph('<b>Well done! Your solution is already optimized.</b>',B),Paragraph('<b>Optimal approach:</b> '+a.get('optimal_approach','—'),B),Paragraph('<b>Complexity:</b> '+a.get('optimal_complexity','—'),B),Paragraph('<b>Key learning:</b> '+a.get('key_learning','—'),B)]
+        elif verdict == 'OPTIMIZATION_AVAILABLE':
+            story += [Paragraph('AI Review — Optimization Available',S),Paragraph('<b>Better approach:</b> '+a.get('optimal_approach','—'),B),Paragraph('<b>Why better:</b> '+a.get('why_better','—'),B),Paragraph('<b>Optimized complexity:</b> '+a.get('optimal_complexity','—'),B),Paragraph('Optimized C++ Code',S),code_box(a.get('optimized_code',c),f'OC{i}',i,True),Paragraph('<b>Key learning:</b> '+a.get('key_learning','—'),B)]
+        elif verdict == 'NO_MEANINGFUL_IMPROVEMENT':
+            story += [Paragraph('AI Review',S),Paragraph('<b>No meaningful improvement found.</b>',B),Paragraph('<b>Key learning:</b> '+a.get('key_learning','—'),B)]
+        else:
+            story += [Paragraph('AI Review',S),Paragraph('No AI review yet. Run local_ai_solution_analyzer.py first.',B)]
         story += [Paragraph(f'Problem {i+1} of {len(ps)}',Small)]
         if i<len(ps)-1: story.append(PageBreak())
     SimpleDocTemplate(str(OUTPUT),pagesize=A4,rightMargin=M,leftMargin=M,topMargin=11*mm,bottomMargin=12*mm,title='My Leetcode Notes',author='xernix-2007').build(story,onFirstPage=footer,onLaterPages=footer)
