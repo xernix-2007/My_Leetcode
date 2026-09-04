@@ -69,4 +69,16 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0094-binary-tree-inorder-traversal](https://github.com/xernix-2007/My_Leetcode/tree/master/0094-binary-tree-inorder-traversal) |
+## Array
+|  |
+| ------- |
+| [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
+## Hash Table
+|  |
+| ------- |
+| [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
+## Union-Find
+|  |
+| ------- |
+| [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
 <!---LeetCode Topics End-->
