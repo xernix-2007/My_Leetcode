@@ -10,6 +10,7 @@ on:
 permissions:
   contents: write
 
+# Prevent multiple PDF jobs from fighting over the same PDF commit.
 concurrency:
   group: update-leetcode-pdf
   cancel-in-progress: false
@@ -35,34 +36,37 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y fonts-dejavu
 
-      - name: Generate PDF
-        run: python generate_pdf.py
-
-      - name: Commit and push updated PDF
+      - name: Generate and push PDF
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add LeetCode_Notes.pdf
 
-          if git diff --cached --quiet; then
-            echo "PDF is already up to date."
-            exit 0
-          fi
-
-          git commit -m "docs: update LeetCode PDF"
-
+          # LeetHub can push a new solution while this workflow is running.
+          # Always regenerate from the latest main before trying to push.
           for attempt in 1 2 3 4 5; do
+            echo "PDF update attempt ${attempt}/5"
+
             git fetch origin main
-            git rebase origin/main
+            git reset --hard origin/main
+
+            python generate_pdf.py
+
+            git add LeetCode_Notes.pdf
+            if git diff --cached --quiet; then
+              echo "PDF is already up to date."
+              exit 0
+            fi
+
+            git commit -m "docs: update LeetCode PDF"
 
             if git push origin HEAD:main; then
               echo "PDF update pushed successfully."
               exit 0
             fi
 
-            echo "Push attempt ${attempt} failed because main changed. Retrying..."
+            echo "Main changed while pushing. Re-fetching and regenerating the PDF..."
             sleep $((attempt * 2))
           done
 
