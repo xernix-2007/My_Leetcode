@@ -76,6 +76,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0014-longest-common-prefix](https://github.com/xernix-2007/My_Leetcode/tree/master/0014-longest-common-prefix) |
 | [0081-search-in-rotated-sorted-array-ii](https://github.com/xernix-2007/My_Leetcode/tree/master/0081-search-in-rotated-sorted-array-ii) |
 | [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
+| [0209-minimum-size-subarray-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0209-minimum-size-subarray-sum) |
 ## Hash Table
 |  |
 | ------- |
@@ -90,6 +91,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0081-search-in-rotated-sorted-array-ii](https://github.com/xernix-2007/My_Leetcode/tree/master/0081-search-in-rotated-sorted-array-ii) |
+| [0209-minimum-size-subarray-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0209-minimum-size-subarray-sum) |
 ## String
 |  |
 | ------- |
@@ -103,4 +105,9 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0076-minimum-window-substring](https://github.com/xernix-2007/My_Leetcode/tree/master/0076-minimum-window-substring) |
+| [0209-minimum-size-subarray-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0209-minimum-size-subarray-sum) |
+## Prefix Sum
+|  |
+| ------- |
+| [0209-minimum-size-subarray-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0209-minimum-size-subarray-sum) |
 <!---LeetCode Topics End-->
