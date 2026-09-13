@@ -1,5 +1,5 @@
 from pathlib import Path
-from html import unescape
+from html import unescape, escape
 import re
 
 from reportlab.lib import colors
@@ -16,6 +16,15 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 ROOT = Path(__file__).resolve().parent
 OUTPUT = ROOT / "LeetCode_Notes.pdf"
+
+# Supported source-file extensions. The generator preserves the submitted file exactly.
+LANGUAGES = {
+    ".cpp": "C++", ".cc": "C++", ".cxx": "C++",
+    ".c": "C", ".py": "Python", ".java": "Java",
+    ".js": "JavaScript", ".ts": "TypeScript", ".go": "Go",
+    ".rs": "Rust", ".cs": "C#", ".kt": "Kotlin",
+    ".swift": "Swift", ".php": "PHP", ".rb": "Ruby",
+}
 
 # Use a readable Unicode font available on GitHub Actions runners.
 pdfmetrics.registerFont(TTFont("DejaVu", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"))
@@ -72,7 +81,6 @@ def read_readme(path):
     diff = re.search(r"<h3>(.*?)</h3>", raw, re.I | re.S)
     difficulty = strip_html(diff.group(1)) if diff else ""
 
-    # Prefer the first paragraph after the difficulty/HR as the problem statement.
     paragraphs = re.findall(r"<p>(.*?)</p>", raw, re.I | re.S)
     question = ""
     for p in paragraphs:
@@ -114,7 +122,6 @@ def infer_pattern(title, question, code):
 
 def complexity(code):
     c = code.replace(" ", "")
-    # Conservative automatic estimates. These are labels, not formal proofs.
     nested = len(re.findall(r"for\s*\([^)]*\).*\{", c, re.S))
     if "sort(" in c or ".sort(" in c:
         return "Time: O(n log n) typical  |  Space: O(n) or O(1) auxiliary"
@@ -132,6 +139,30 @@ def clean_code(code):
     return code.strip()
 
 
+def find_solution_file(folder):
+    """Find the submitted solution without assuming it is C++."""
+    candidates = []
+    for path in folder.iterdir():
+        if not path.is_file() or path.suffix.lower() not in LANGUAGES:
+            continue
+        candidates.append(path)
+
+    if not candidates:
+        return None
+
+    # Prefer a solution whose stem matches the problem folder, e.g. 0001-two-sum.cpp.
+    exact = [p for p in candidates if p.stem.lower() == folder.name.lower()]
+    if exact:
+        return sorted(exact)[0]
+
+    # Also support LeetHub's solution.<ext> naming convention.
+    solution_named = [p for p in candidates if p.stem.lower() == "solution"]
+    if solution_named:
+        return sorted(solution_named)[0]
+
+    return sorted(candidates, key=lambda p: p.name.lower())[0]
+
+
 def footer(canvas, doc):
     canvas.saveState()
     canvas.setFont("DejaVu", 8.5)
@@ -146,17 +177,20 @@ def build():
         if not folder.is_dir() or not re.match(r"^\d{4}-", folder.name):
             continue
         readme = folder / "README.md"
-        cpp_files = sorted(folder.glob("*.cpp"))
-        if not readme.exists() or not cpp_files:
+        solution_file = find_solution_file(folder)
+        if not readme.exists() or solution_file is None:
             continue
+
         title, difficulty, question, example = read_readme(readme)
-        code = clean_code(cpp_files[0].read_text(encoding="utf-8", errors="ignore"))
+        code = clean_code(solution_file.read_text(encoding="utf-8", errors="ignore"))
+        language = LANGUAGES[solution_file.suffix.lower()]
         problems.append({
             "title": title,
             "difficulty": difficulty,
             "question": question,
             "example": example,
             "code": code,
+            "language": language,
             "pattern": infer_pattern(title, question, code),
             "complexity": complexity(code),
         })
@@ -187,7 +221,7 @@ def build():
 
         if p["example"]:
             story.append(Paragraph("Example", section_style))
-            story.append(Preformatted(p["example"], ParagraphStyle(
+            story.append(Preformatted(escape(p["example"]), ParagraphStyle(
                 "Example", fontName="DejaVuMono", fontSize=9.5, leading=11.5,
                 leftIndent=5, spaceAfter=3
             )))
@@ -200,8 +234,7 @@ def build():
         story.append(Paragraph("Complexity", section_style))
         story.append(Paragraph(p["complexity"], body_style))
 
-        story.append(Paragraph("C++ Solution", section_style))
-        # Keep code large, but automatically reduce only when a long solution would overflow its page.
+        story.append(Paragraph(f"{p['language']} Solution", section_style))
         lines = p["code"].count("\n") + 1
         if lines <= 28:
             fs, leading = 10.2, 12.0
@@ -218,7 +251,8 @@ def build():
             borderColor=colors.HexColor("#B8C7D9"),
             backColor=colors.HexColor("#F5F7FA")
         )
-        story.append(Preformatted(p["code"], code_style, maxLineLength=95))
+        # Escape source so C++/HTML-like syntax such as vector<int> is never treated as markup.
+        story.append(Preformatted(escape(p["code"]), code_style, maxLineLength=95))
         story.append(Spacer(1, 2 * mm))
         story.append(Paragraph(f"Problem {idx + 1} of {len(problems)}", small_style))
         if idx != len(problems) - 1:
