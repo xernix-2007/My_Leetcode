@@ -80,6 +80,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0001-two-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0001-two-sum) |
+| [0076-minimum-window-substring](https://github.com/xernix-2007/My_Leetcode/tree/master/0076-minimum-window-substring) |
 | [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
 ## Union-Find
 |  |
@@ -93,8 +94,13 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0014-longest-common-prefix](https://github.com/xernix-2007/My_Leetcode/tree/master/0014-longest-common-prefix) |
+| [0076-minimum-window-substring](https://github.com/xernix-2007/My_Leetcode/tree/master/0076-minimum-window-substring) |
 ## Trie
 |  |
 | ------- |
 | [0014-longest-common-prefix](https://github.com/xernix-2007/My_Leetcode/tree/master/0014-longest-common-prefix) |
+## Sliding Window
+|  |
+| ------- |
+| [0076-minimum-window-substring](https://github.com/xernix-2007/My_Leetcode/tree/master/0076-minimum-window-substring) |
 <!---LeetCode Topics End-->
