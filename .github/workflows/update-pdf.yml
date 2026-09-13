@@ -10,12 +10,18 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: update-leetcode-pdf
+  cancel-in-progress: false
+
 jobs:
   build-pdf:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,14 +38,33 @@ jobs:
       - name: Generate PDF
         run: python generate_pdf.py
 
-      - name: Commit updated PDF
+      - name: Commit and push updated PDF
+        shell: bash
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add LeetCode_Notes.pdf
+
           if git diff --cached --quiet; then
             echo "PDF is already up to date."
-          else
-            git commit -m "docs: update LeetCode PDF"
-            git push
+            exit 0
           fi
+
+          git commit -m "docs: update LeetCode PDF"
+
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+
+            if git push origin HEAD:main; then
+              echo "PDF update pushed successfully."
+              exit 0
+            fi
+
+            echo "Push attempt ${attempt} failed because main changed. Retrying..."
+            sleep $((attempt * 2))
+          done
+
+          echo "Unable to push PDF update after 5 attempts."
+          exit 1
