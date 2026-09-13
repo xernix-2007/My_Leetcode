@@ -72,12 +72,14 @@ I am continuously expanding this repository as I move from fundamentals toward h
 ## Array
 |  |
 | ------- |
+| [0001-two-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0001-two-sum) |
 | [0014-longest-common-prefix](https://github.com/xernix-2007/My_Leetcode/tree/master/0014-longest-common-prefix) |
 | [0081-search-in-rotated-sorted-array-ii](https://github.com/xernix-2007/My_Leetcode/tree/master/0081-search-in-rotated-sorted-array-ii) |
 | [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
 ## Hash Table
 |  |
 | ------- |
+| [0001-two-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0001-two-sum) |
 | [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
 ## Union-Find
 |  |
