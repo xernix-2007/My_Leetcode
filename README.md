@@ -61,14 +61,17 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0094-binary-tree-inorder-traversal](https://github.com/xernix-2007/My_Leetcode/tree/master/0094-binary-tree-inorder-traversal) |
+| [0098-validate-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0098-validate-binary-search-tree) |
 ## Depth-First Search
 |  |
 | ------- |
 | [0094-binary-tree-inorder-traversal](https://github.com/xernix-2007/My_Leetcode/tree/master/0094-binary-tree-inorder-traversal) |
+| [0098-validate-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0098-validate-binary-search-tree) |
 ## Binary Tree
 |  |
 | ------- |
 | [0094-binary-tree-inorder-traversal](https://github.com/xernix-2007/My_Leetcode/tree/master/0094-binary-tree-inorder-traversal) |
+| [0098-validate-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0098-validate-binary-search-tree) |
 ## Array
 |  |
 | ------- |
@@ -142,4 +145,8 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
+## Binary Search Tree
+|  |
+| ------- |
+| [0098-validate-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0098-validate-binary-search-tree) |
 <!---LeetCode Topics End-->
