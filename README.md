@@ -85,6 +85,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0209-minimum-size-subarray-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0209-minimum-size-subarray-sum) |
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
 | [0239-sliding-window-maximum](https://github.com/xernix-2007/My_Leetcode/tree/master/0239-sliding-window-maximum) |
+| [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
 ## Hash Table
 |  |
 | ------- |
@@ -144,6 +145,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
+| [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
 ## Quickselect
 |  |
 | ------- |
@@ -156,4 +158,16 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0100-same-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0100-same-tree) |
+## Two Pointers
+|  |
+| ------- |
+| [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
+## Greedy
+|  |
+| ------- |
+| [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
+## Quicksort
+|  |
+| ------- |
+| [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
 <!---LeetCode Topics End-->
