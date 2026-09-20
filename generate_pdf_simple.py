@@ -39,10 +39,10 @@ def style(name, font="SimpleSans", size=9, leading=None, color=BLACK):
         leading=leading or size * 1.35, textColor=color
     )
 
-TITLE = style("simple_title", "SimpleBold", 21, 25)
-SECTION = style("simple_section", "SimpleBold", 8.5, 10, ACCENT)
-BODY = style("simple_body", size=9, leading=12)
-META = style("simple_meta", size=7.5, leading=9, color=GRAY)
+TITLE = style("simple_title", "SimpleBold", 24, 29)
+SECTION = style("simple_section", "SimpleBold", 10.5, 13, ACCENT)
+BODY = style("simple_body", size=11, leading=15)
+META = style("simple_meta", size=9, leading=11, color=GRAY)
 
 def clean(text):
     text = re.sub(r"<br\s*/?>", "\n", text, flags=re.I)
@@ -142,8 +142,8 @@ def code_lines(code, index):
     lines = code.splitlines() or [""]
     # Keep code comfortably readable. Long lines wrap instead of
     # shrinking the whole solution down to tiny text.
-    font_size = 8.6
-    leading = 12.4
+    font_size = 10.5
+    leading = 15
     code_style = style(
         f"simple_code_{index}",
         "SimpleMono",
@@ -158,7 +158,7 @@ def code_lines(code, index):
     result = []
     for line in lines:
         result.append(Paragraph(xml_escape(line) if line else " ", code_style))
-        result.append(Spacer(1, 1.2))
+        result.append(Spacer(1, 3.5))
     return result
 
 def footer(canvas, doc):
@@ -218,7 +218,7 @@ def build():
                 f"<b>Language:</b> {xml_escape(p['language'])}",
                 META,
             ),
-            Spacer(1, 8 * mm),
+            Spacer(1, 11 * mm),
 
             Paragraph("QUESTION", SECTION),
             Spacer(1, 1.5 * mm),
@@ -226,7 +226,7 @@ def build():
                 xml_escape(p["question"] or "See the original problem statement."),
                 BODY,
             ),
-            Spacer(1, 7 * mm),
+            Spacer(1, 9 * mm),
 
             Paragraph("EXAMPLE", SECTION),
             Spacer(1, 1.5 * mm),
@@ -234,7 +234,7 @@ def build():
                 xml_escape(p["example"] or "No example extracted from the README."),
                 style(f"example_{i}", "SimpleMono", 7.6, 10),
             ),
-            Spacer(1, 7 * mm),
+            Spacer(1, 9 * mm),
 
             Paragraph("COMPLEXITY", SECTION),
             Spacer(1, 1.5 * mm),
@@ -243,7 +243,7 @@ def build():
                 f"<b>Space:</b> {xml_escape(p['space'])}",
                 BODY,
             ),
-            Spacer(1, 7 * mm),
+            Spacer(1, 9 * mm),
 
             Paragraph("SOLUTION", SECTION),
             Spacer(1, 2 * mm),
