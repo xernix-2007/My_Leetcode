@@ -4,6 +4,7 @@ on:
   push:
     paths-ignore:
       - 'LeetCode_Notes.pdf'
+      - 'LeetCode_Notes_Simple.pdf'
       - '.ai/**'
   workflow_dispatch:
 
@@ -52,7 +53,7 @@ jobs:
             git reset --hard origin/main
 
             python generate_pdf.py
-          python generate_pdf_simple.py
+            python generate_pdf_simple.py
 
             git add LeetCode_Notes.pdf LeetCode_Notes_Simple.pdf
             if git diff --cached --quiet; then
