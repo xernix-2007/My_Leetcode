@@ -140,9 +140,10 @@ def gather():
 
 def code_lines(code, index):
     lines = code.splitlines() or [""]
-    longest = max(len(line) for line in lines)
-    font_size = min(8.0, max(5.2, 175 / max(longest, 35)))
-    leading = font_size * 1.32
+    # Keep code comfortably readable. Long lines wrap instead of
+    # shrinking the whole solution down to tiny text.
+    font_size = 8.6
+    leading = 12.4
     code_style = style(
         f"simple_code_{index}",
         "SimpleMono",
@@ -150,14 +151,15 @@ def code_lines(code, index):
         leading,
         BLACK
     )
+    code_style.wordWrap = "CJK"
 
-    # Each source line is a separate Paragraph. This is deliberate:
-    # ReportLab can then move lines to the next page instead of clipping
-    # a long solution as one giant flowable.
-    return [
-        Paragraph(xml_escape(line) if line else " ", code_style)
-        for line in lines
-    ]
+    # Each source line is a separate Paragraph, with a small visual gap
+    # between lines so the solution reads like normal source code.
+    result = []
+    for line in lines:
+        result.append(Paragraph(xml_escape(line) if line else " ", code_style))
+        result.append(Spacer(1, 1.2))
+    return result
 
 def footer(canvas, doc):
     canvas.saveState()
@@ -216,7 +218,7 @@ def build():
                 f"<b>Language:</b> {xml_escape(p['language'])}",
                 META,
             ),
-            Spacer(1, 6 * mm),
+            Spacer(1, 8 * mm),
 
             Paragraph("QUESTION", SECTION),
             Spacer(1, 1.5 * mm),
@@ -224,7 +226,7 @@ def build():
                 xml_escape(p["question"] or "See the original problem statement."),
                 BODY,
             ),
-            Spacer(1, 5 * mm),
+            Spacer(1, 7 * mm),
 
             Paragraph("EXAMPLE", SECTION),
             Spacer(1, 1.5 * mm),
@@ -232,7 +234,7 @@ def build():
                 xml_escape(p["example"] or "No example extracted from the README."),
                 style(f"example_{i}", "SimpleMono", 7.6, 10),
             ),
-            Spacer(1, 5 * mm),
+            Spacer(1, 7 * mm),
 
             Paragraph("COMPLEXITY", SECTION),
             Spacer(1, 1.5 * mm),
@@ -241,7 +243,7 @@ def build():
                 f"<b>Space:</b> {xml_escape(p['space'])}",
                 BODY,
             ),
-            Spacer(1, 5 * mm),
+            Spacer(1, 7 * mm),
 
             Paragraph("SOLUTION", SECTION),
             Spacer(1, 2 * mm),
