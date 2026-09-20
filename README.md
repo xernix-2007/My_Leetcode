@@ -63,18 +63,21 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0094-binary-tree-inorder-traversal](https://github.com/xernix-2007/My_Leetcode/tree/master/0094-binary-tree-inorder-traversal) |
 | [0098-validate-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0098-validate-binary-search-tree) |
 | [0100-same-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0100-same-tree) |
+| [0101-symmetric-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0101-symmetric-tree) |
 ## Depth-First Search
 |  |
 | ------- |
 | [0094-binary-tree-inorder-traversal](https://github.com/xernix-2007/My_Leetcode/tree/master/0094-binary-tree-inorder-traversal) |
 | [0098-validate-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0098-validate-binary-search-tree) |
 | [0100-same-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0100-same-tree) |
+| [0101-symmetric-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0101-symmetric-tree) |
 ## Binary Tree
 |  |
 | ------- |
 | [0094-binary-tree-inorder-traversal](https://github.com/xernix-2007/My_Leetcode/tree/master/0094-binary-tree-inorder-traversal) |
 | [0098-validate-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0098-validate-binary-search-tree) |
 | [0100-same-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0100-same-tree) |
+| [0101-symmetric-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0101-symmetric-tree) |
 ## Array
 |  |
 | ------- |
@@ -158,6 +161,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0100-same-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0100-same-tree) |
+| [0101-symmetric-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0101-symmetric-tree) |
 ## Two Pointers
 |  |
 | ------- |
