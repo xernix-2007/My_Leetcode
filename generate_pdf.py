@@ -12,7 +12,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, PageBreak, Preformatted,
+    SimpleDocTemplate, Paragraph, Spacer, PageBreak, Preformatted, XPreformatted,
     Table, TableStyle, KeepTogether
 )
 from reportlab.pdfbase import pdfmetrics
