@@ -52,8 +52,9 @@ jobs:
             git reset --hard origin/main
 
             python generate_pdf.py
+          python generate_pdf_simple.py
 
-            git add LeetCode_Notes.pdf
+            git add LeetCode_Notes.pdf LeetCode_Notes_Simple.pdf
             if git diff --cached --quiet; then
               echo "PDF is already up to date."
               exit 0
