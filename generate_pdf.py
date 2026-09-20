@@ -737,8 +737,7 @@ def build():
 
         story.append(Paragraph("SOLUTION", eyebrow))
         story += code_block(
-            p["code"],
-            f"{p['language']}  •  {p['number']}",
+            p,
             fs=fs,
             leading=leading
         )
