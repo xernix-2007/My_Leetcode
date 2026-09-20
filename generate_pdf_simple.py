@@ -7,7 +7,7 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, XPreformatted
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
@@ -95,77 +95,17 @@ def gather():
     return sorted(out, key=lambda p: int(p["number"]) if p["number"].isdigit() else 999999)
 
 def code_block(code, index):
+    # Use one flowable per source line so long solutions can continue onto
+    # another page instead of disappearing when they exceed one page.
     lines = code.splitlines() or [""]
     longest = max(len(x) for x in lines)
     fs = min(8.0, max(5.2, 175 / max(longest, 35)))
-    leading = fs * 1.32
-    return XPreformatted(
-        xml_escape(code),
-        style(f"simple_code_{index}", "SimpleMono", fs, leading)
+    code_style = style(
+        f"simple_code_{index}", "SimpleMono", fs, fs * 1.32,
+        BLACK
     )
-
-def footer(canvas, doc):
-    canvas.saveState()
-    canvas.setStrokeColor(LINE)
-    canvas.line(18*mm, 12*mm, PAGE_W-18*mm, 12*mm)
-    canvas.setFillColor(GRAY)
-    canvas.setFont("SimpleSans", 7)
-    canvas.drawString(18*mm, 7*mm, "My LeetCode Notes")
-    canvas.drawRightString(PAGE_W-18*mm, 7*mm, str(doc.page))
-    canvas.restoreState()
-
-def build():
-    problems = gather()
-    doc = SimpleDocTemplate(
-        str(OUTPUT), pagesize=A4,
-        leftMargin=18*mm, rightMargin=18*mm,
-        topMargin=16*mm, bottomMargin=17*mm,
-        title="My LeetCode Notes - Simple", author="xernix-2007"
-    )
-
-    story = [
-        Spacer(1, 65*mm),
-        Paragraph("MY LEETCODE", style("cover_a","SimpleBold",12,14,ACCENT)),
-        Spacer(1, 3*mm),
-        Paragraph("INTERVIEW NOTES", style("cover_b","SimpleBold",27,31)),
-        Spacer(1, 4*mm),
-        Paragraph(
-            f"{len(problems)} problems  |  Questions  |  Examples  |  Complexity  |  Solutions",
-            style("cover_c", size=9.5, leading=12, color=GRAY)
-        ),
-        Spacer(1, 82*mm),
-        Paragraph("Focused notes for fast revision.", style("cover_d", size=9, color=GRAY)),
-        PageBreak()
+    return [
+        Paragraph(xml_escape(line) if line else " ", code_style)
+        for line in lines
     ]
 
-    for i, p in enumerate(problems):
-        story.extend([
-            Paragraph(f"{p['number']}. {p['title']}", TITLE),
-            Spacer(1, 2*mm),
-            Paragraph(f"<b>Difficulty:</b> {p['difficulty'] or 'Unknown'}    <b>Language:</b> {p['language']}", META),
-            Spacer(1, 6*mm),
-            Paragraph("QUESTION", SECTION),
-            Spacer(1, 1.5*mm),
-            Paragraph(p["question"] or "See the original problem statement.", BODY),
-            Spacer(1, 5*mm),
-            Paragraph("EXAMPLE", SECTION),
-            Spacer(1, 1.5*mm),
-            Paragraph(xml_escape(p["example"] or "No example extracted from the README."),
-                      style(f"example_{i}","SimpleMono",7.6,10)),
-            Spacer(1, 5*mm),
-            Paragraph("COMPLEXITY", SECTION),
-            Spacer(1, 1.5*mm),
-            Paragraph(f"<b>Time:</b> {p['time']}    <b>Space:</b> {p['space']}", BODY),
-            Spacer(1, 5*mm),
-            Paragraph("SOLUTION", SECTION),
-            Spacer(1, 2*mm),
-            code_block(p["code"], i)
-        ])
-        if i != len(problems) - 1:
-            story.append(PageBreak())
-
-    doc.build(story, onFirstPage=footer, onLaterPages=footer)
-    print(f"Generated {OUTPUT} with {len(problems)} problems.")
-
-if __name__ == "__main__":
-    build()
