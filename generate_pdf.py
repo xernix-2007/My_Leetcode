@@ -547,7 +547,7 @@ def build():
     # Cover
     # -------------------------
     story += [
-        Spacer(1, 26 * mm),
+        Spacer(1, 78 * mm),
         Paragraph("MY LEETCODE", eyebrow),
         Paragraph("Interview Revision", cover_title),
         Paragraph(
