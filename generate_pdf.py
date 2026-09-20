@@ -3,13 +3,13 @@ from html import unescape, escape
 import re
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.enums import TA_LEFT, TA_CENTER
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, PageBreak, Preformatted,
-    KeepTogether
+    Table, TableStyle, KeepTogether
 )
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -17,7 +17,6 @@ from reportlab.pdfbase.ttfonts import TTFont
 ROOT = Path(__file__).resolve().parent
 OUTPUT = ROOT / "LeetCode_Notes.pdf"
 
-# Supported source-file extensions. The generator preserves the submitted file exactly.
 LANGUAGES = {
     ".cpp": "C++", ".cc": "C++", ".cxx": "C++",
     ".c": "C", ".py": "Python", ".java": "Java",
@@ -26,39 +25,96 @@ LANGUAGES = {
     ".swift": "Swift", ".php": "PHP", ".rb": "Ruby",
 }
 
-# Use a readable Unicode font available on GitHub Actions runners.
-pdfmetrics.registerFont(TTFont("DejaVu", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"))
-pdfmetrics.registerFont(TTFont("DejaVu-Bold", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"))
-pdfmetrics.registerFont(TTFont("DejaVuMono", "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"))
+FONT_DIR = "/usr/share/fonts/truetype/dejavu"
+pdfmetrics.registerFont(TTFont("DejaVu", f"{FONT_DIR}/DejaVuSans.ttf"))
+pdfmetrics.registerFont(TTFont("DejaVu-Bold", f"{FONT_DIR}/DejaVuSans-Bold.ttf"))
+pdfmetrics.registerFont(TTFont("DejaVuMono", f"{FONT_DIR}/DejaVuSansMono.ttf"))
 
 PAGE_W, PAGE_H = A4
-MARGIN = 14 * mm
+MARGIN_X = 15 * mm
+TOP = 14 * mm
+BOTTOM = 15 * mm
+
+NAVY = colors.HexColor("#132238")
+BLUE = colors.HexColor("#1976D2")
+BLUE_DARK = colors.HexColor("#0D47A1")
+BLUE_LIGHT = colors.HexColor("#EAF3FF")
+BLUE_PALE = colors.HexColor("#F6FAFF")
+TEXT = colors.HexColor("#263238")
+MUTED = colors.HexColor("#6B7785")
+BORDER = colors.HexColor("#D9E2EC")
+SOFT = colors.HexColor("#F4F6F8")
+CODE_BG = colors.HexColor("#111827")
+WHITE = colors.white
+EASY = colors.HexColor("#14804A")
+MEDIUM = colors.HexColor("#B26A00")
+HARD = colors.HexColor("#C0392B")
 
 styles = getSampleStyleSheet()
 
-title_style = ParagraphStyle(
-    "TitleLarge", fontName="DejaVu-Bold", fontSize=20, leading=23,
-    alignment=TA_CENTER, spaceAfter=7, textColor=colors.HexColor("#17365D")
+cover_title = ParagraphStyle(
+    "CoverTitle", fontName="DejaVu-Bold", fontSize=31, leading=36,
+    alignment=TA_LEFT, textColor=NAVY, spaceAfter=5
 )
-meta_style = ParagraphStyle(
-    "Meta", fontName="DejaVu-Bold", fontSize=10.5, leading=13,
-    spaceAfter=3, textColor=colors.HexColor("#333333")
+cover_sub = ParagraphStyle(
+    "CoverSub", fontName="DejaVu", fontSize=12, leading=17,
+    alignment=TA_LEFT, textColor=MUTED
 )
-section_style = ParagraphStyle(
-    "Section", fontName="DejaVu-Bold", fontSize=12.5, leading=15,
-    spaceBefore=5, spaceAfter=3, textColor=colors.HexColor("#17365D")
+eyebrow = ParagraphStyle(
+    "Eyebrow", fontName="DejaVu-Bold", fontSize=8.5, leading=10,
+    textColor=BLUE, spaceAfter=4
 )
-body_style = ParagraphStyle(
-    "BodyLarge", fontName="DejaVu", fontSize=11.2, leading=14.2,
-    spaceAfter=4
+problem_title = ParagraphStyle(
+    "ProblemTitle", fontName="DejaVu-Bold", fontSize=22, leading=26,
+    textColor=NAVY, spaceAfter=7
 )
-small_style = ParagraphStyle(
-    "Small", fontName="DejaVu", fontSize=9.3, leading=11.5,
-    textColor=colors.HexColor("#555555")
+section = ParagraphStyle(
+    "Section", fontName="DejaVu-Bold", fontSize=10.2, leading=12.5,
+    textColor=NAVY, spaceBefore=4, spaceAfter=4
 )
-cover_style = ParagraphStyle(
-    "Cover", fontName="DejaVu-Bold", fontSize=27, leading=33,
-    alignment=TA_CENTER, textColor=colors.HexColor("#17365D")
+body = ParagraphStyle(
+    "Body", fontName="DejaVu", fontSize=10.2, leading=14.2,
+    textColor=TEXT, spaceAfter=2
+)
+small = ParagraphStyle(
+    "Small", fontName="DejaVu", fontSize=8.6, leading=11,
+    textColor=MUTED
+)
+tiny = ParagraphStyle(
+    "Tiny", fontName="DejaVu", fontSize=7.6, leading=9.5,
+    textColor=MUTED
+)
+card_text = ParagraphStyle(
+    "CardText", fontName="DejaVu", fontSize=9.8, leading=13.5,
+    textColor=TEXT
+)
+card_label = ParagraphStyle(
+    "CardLabel", fontName="DejaVu-Bold", fontSize=7.6, leading=9,
+    textColor=MUTED
+)
+index_title = ParagraphStyle(
+    "IndexTitle", fontName="DejaVu-Bold", fontSize=22, leading=26,
+    textColor=NAVY, spaceAfter=3
+)
+index_cell = ParagraphStyle(
+    "IndexCell", fontName="DejaVu", fontSize=8.4, leading=10.5,
+    textColor=TEXT
+)
+index_cell_bold = ParagraphStyle(
+    "IndexCellBold", fontName="DejaVu-Bold", fontSize=8.4, leading=10.5,
+    textColor=NAVY
+)
+code_label = ParagraphStyle(
+    "CodeLabel", fontName="DejaVu-Bold", fontSize=8.3, leading=10,
+    textColor=WHITE
+)
+code_text = ParagraphStyle(
+    "CodeText", fontName="DejaVuMono", fontSize=7.65, leading=8.9,
+    textColor=colors.HexColor("#E5E7EB")
+)
+tip_text = ParagraphStyle(
+    "TipText", fontName="DejaVu", fontSize=8.4, leading=11.5,
+    textColor=TEXT
 )
 
 
@@ -85,7 +141,9 @@ def read_readme(path):
     question = ""
     for p in paragraphs:
         candidate = strip_html(p)
-        if candidate and not candidate.lower().startswith(("example", "constraints", "follow-up")):
+        if candidate and not candidate.lower().startswith(
+            ("example", "constraints", "follow-up")
+        ):
             question = candidate
             break
 
@@ -122,40 +180,33 @@ def infer_pattern(title, question, code):
 
 def complexity(code):
     c = code.replace(" ", "")
-    nested = len(re.findall(r"for\s*\([^)]*\).*\{", c, re.S))
     if "sort(" in c or ".sort(" in c:
-        return "Time: O(n log n) typical  |  Space: O(n) or O(1) auxiliary"
+        return "O(n log n)", "O(n) / O(1)"
     if "unordered_set" in c or "unordered_map" in c or "set<" in c:
-        return "Time: O(n) average  |  Space: O(n)"
-    if nested >= 2:
-        return "Time: O(n²)  |  Space: O(1) auxiliary"
-    if "while" in c and ("left" in c and "right" in c):
-        return "Time: O(n)  |  Space: O(1) auxiliary"
-    return "Time: O(n)  |  Space: O(1) auxiliary"
+        return "O(n) average", "O(n)"
+    if len(re.findall(r"for\s*\([^)]*\).*\{", c, re.S)) >= 2:
+        return "O(n²)", "O(1)"
+    if "while" in c and "left" in c and "right" in c:
+        return "O(n)", "O(1)"
+    return "O(n)", "O(1)"
 
 
 def clean_code(code):
-    code = code.replace("\r\n", "\n").replace("\r", "\n")
-    return code.strip()
+    return code.replace("\r\n", "\n").replace("\r", "\n").strip()
 
 
 def find_solution_file(folder):
-    """Find the submitted solution without assuming it is C++."""
-    candidates = []
-    for path in folder.iterdir():
-        if not path.is_file() or path.suffix.lower() not in LANGUAGES:
-            continue
-        candidates.append(path)
-
+    candidates = [
+        p for p in folder.iterdir()
+        if p.is_file() and p.suffix.lower() in LANGUAGES
+    ]
     if not candidates:
         return None
 
-    # Prefer a solution whose stem matches the problem folder, e.g. 0001-two-sum.cpp.
     exact = [p for p in candidates if p.stem.lower() == folder.name.lower()]
     if exact:
         return sorted(exact)[0]
 
-    # Also support LeetHub's solution.<ext> naming convention.
     solution_named = [p for p in candidates if p.stem.lower() == "solution"]
     if solution_named:
         return sorted(solution_named)[0]
@@ -163,12 +214,156 @@ def find_solution_file(folder):
     return sorted(candidates, key=lambda p: p.name.lower())[0]
 
 
+def difficulty_color(value):
+    v = value.lower()
+    if "easy" in v:
+        return EASY
+    if "medium" in v:
+        return MEDIUM
+    if "hard" in v:
+        return HARD
+    return BLUE
+
+
+def badge(label, bg, fg=WHITE, width=None):
+    t = Table([[Paragraph(label, ParagraphStyle(
+        "Badge", fontName="DejaVu-Bold", fontSize=7.4, leading=9,
+        alignment=TA_CENTER, textColor=fg
+    ))]], colWidths=[width] if width else None, rowHeights=[7.2 * mm])
+    t.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), bg),
+        ("BOX", (0, 0), (-1, -1), 0, bg),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 7),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+        ("TOPPADDING", (0, 0), (-1, -1), 2),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+    ]))
+    return t
+
+
+def pill_row(p):
+    diff = p["difficulty"] or "Unknown"
+    items = [
+        badge(diff, difficulty_color(diff)),
+        badge(p["pattern"], BLUE, width=41 * mm),
+        badge(p["language"], NAVY, width=25 * mm),
+    ]
+    row = Table([items], hAlign="LEFT", colWidths=[32 * mm, 46 * mm, 29 * mm])
+    row.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 3),
+        ("TOPPADDING", (0, 0), (-1, -1), 0),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+    ]))
+    return row
+
+
+def card(content, bg=WHITE, border=BORDER, pad=8):
+    t = Table([[content]], colWidths=[PAGE_W - 2 * MARGIN_X])
+    t.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), bg),
+        ("BOX", (0, 0), (-1, -1), 0.7, border),
+        ("LEFTPADDING", (0, 0), (-1, -1), pad),
+        ("RIGHTPADDING", (0, 0), (-1, -1), pad),
+        ("TOPPADDING", (0, 0), (-1, -1), pad),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), pad),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+    ]))
+    return t
+
+
+def stat_card(label, value):
+    label_p = Paragraph(label.upper(), card_label)
+    value_p = Paragraph(value, ParagraphStyle(
+        "StatValue", parent=card_text, fontName="DejaVu-Bold",
+        fontSize=18, leading=20, textColor=NAVY
+    ))
+    t = Table([[label_p], [value_p]], colWidths=[54 * mm], rowHeights=[7 * mm, 14 * mm])
+    t.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), BLUE_PALE),
+        ("BOX", (0, 0), (-1, -1), 0.7, BORDER),
+        ("LEFTPADDING", (0, 0), (-1, -1), 7),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+        ("TOPPADDING", (0, 0), (-1, -1), 5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+    ]))
+    return t
+
+
+def code_block(code, label, fs=7.65, leading=8.9):
+    safe_label = escape(label)
+    header = Table([[Paragraph(safe_label, code_label)]], colWidths=[PAGE_W - 2 * MARGIN_X])
+    header.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), NAVY),
+        ("LEFTPADDING", (0, 0), (-1, -1), 8),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+        ("TOPPADDING", (0, 0), (-1, -1), 5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+    ]))
+
+    # Preformatted renders source literally. Do NOT HTML-escape the source;
+    # escaping would show vector<int> as vector&lt;int&gt; in the PDF.
+    code_p = Preformatted(
+        code,
+        ParagraphStyle(
+            "Code", fontName="DejaVuMono", fontSize=fs, leading=leading,
+            textColor=colors.HexColor("#E5E7EB"),
+            leftIndent=0, rightIndent=0, spaceBefore=0, spaceAfter=0,
+        ),
+        maxLineLength=102
+    )
+    body_t = Table([[code_p]], colWidths=[PAGE_W - 2 * MARGIN_X])
+    body_t.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), CODE_BG),
+        ("BOX", (0, 0), (-1, -1), 0.7, CODE_BG),
+        ("LEFTPADDING", (0, 0), (-1, -1), 8),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+        ("TOPPADDING", (0, 0), (-1, -1), 7),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+    ]))
+    return [header, body_t]
+
+
 def footer(canvas, doc):
     canvas.saveState()
-    canvas.setFont("DejaVu", 8.5)
-    canvas.setFillColor(colors.HexColor("#666666"))
-    canvas.drawCentredString(PAGE_W / 2, 7 * mm, f"My_Leetcode • Page {doc.page}")
+    # Minimal footer; page body carries the stronger hierarchy.
+    canvas.setStrokeColor(BORDER)
+    canvas.setLineWidth(0.5)
+    canvas.line(MARGIN_X, 9 * mm, PAGE_W - MARGIN_X, 9 * mm)
+    canvas.setFont("DejaVu", 7.8)
+    canvas.setFillColor(MUTED)
+    canvas.drawString(MARGIN_X, 5.8 * mm, "My Leetcode • Revision Notes")
+    canvas.drawRightString(PAGE_W - MARGIN_X, 5.8 * mm, f"Page {doc.page}")
     canvas.restoreState()
+
+
+def top_accent(canvas, doc):
+    canvas.saveState()
+    canvas.setFillColor(BLUE)
+    canvas.rect(0, PAGE_H - 2.8 * mm, PAGE_W, 2.8 * mm, fill=1, stroke=0)
+    canvas.restoreState()
+
+
+def cover_page(canvas, doc):
+    top_accent(canvas, doc)
+    footer(canvas, doc)
+
+
+def indexed_problems(problems):
+    return sorted(
+        problems,
+        key=lambda p: int(re.match(r"\d+", p["number"]).group())
+        if re.match(r"\d+", p["number"]) else 10**9
+    )
+
+
+def number_from_folder(folder):
+    m = re.match(r"^(\d+)-", folder.name)
+    return m.group(1) if m else ""
 
 
 def build():
@@ -176,15 +371,21 @@ def build():
     for folder in sorted(ROOT.iterdir(), key=lambda p: p.name):
         if not folder.is_dir() or not re.match(r"^\d{4}-", folder.name):
             continue
+
         readme = folder / "README.md"
         solution_file = find_solution_file(folder)
         if not readme.exists() or solution_file is None:
             continue
 
         title, difficulty, question, example = read_readme(readme)
-        code = clean_code(solution_file.read_text(encoding="utf-8", errors="ignore"))
+        code = clean_code(
+            solution_file.read_text(encoding="utf-8", errors="ignore")
+        )
         language = LANGUAGES[solution_file.suffix.lower()]
+        time_c, space_c = complexity(code)
+
         problems.append({
+            "number": number_from_folder(folder),
             "title": title,
             "difficulty": difficulty,
             "question": question,
@@ -192,73 +393,249 @@ def build():
             "code": code,
             "language": language,
             "pattern": infer_pattern(title, question, code),
-            "complexity": complexity(code),
+            "time": time_c,
+            "space": space_c,
         })
 
+    problems = indexed_problems(problems)
+
     doc = SimpleDocTemplate(
-        str(OUTPUT), pagesize=A4,
-        rightMargin=MARGIN, leftMargin=MARGIN,
-        topMargin=11 * mm, bottomMargin=12 * mm,
-        title="My Leetcode Notes", author="xernix-2007"
+        str(OUTPUT),
+        pagesize=A4,
+        rightMargin=MARGIN_X,
+        leftMargin=MARGIN_X,
+        topMargin=TOP,
+        bottomMargin=BOTTOM,
+        title="My Leetcode Notes",
+        author="xernix-2007",
+        subject="Interview and DSA revision notes",
     )
 
-    story = [Spacer(1, 55 * mm), Paragraph("My Leetcode", cover_style),
-             Spacer(1, 7 * mm),
-             Paragraph(f"{len(problems)} solved problems • automatically generated", body_style),
-             Spacer(1, 5 * mm),
-             Paragraph("Each problem gets one page with a large, readable solution code section.", body_style),
-             PageBreak()]
+    story = []
 
+    # -------------------------
+    # Cover
+    # -------------------------
+    story += [
+        Spacer(1, 26 * mm),
+        Paragraph("MY LEETCODE", eyebrow),
+        Paragraph("Revision Notes", cover_title),
+        Paragraph(
+            "A clean interview-focused handbook for revising patterns, "
+            "complexities, and solutions without visual clutter.",
+            cover_sub
+        ),
+        Spacer(1, 11 * mm),
+    ]
+
+    easy = sum("easy" in p["difficulty"].lower() for p in problems)
+    medium = sum("medium" in p["difficulty"].lower() for p in problems)
+    hard = sum("hard" in p["difficulty"].lower() for p in problems)
+
+    stats = Table(
+        [[stat_card("Solved", str(len(problems))),
+          stat_card("Patterns", str(len(set(p["pattern"] for p in problems)))),
+          stat_card("Languages", str(len(set(p["language"] for p in problems))))]],
+        colWidths=[57 * mm, 57 * mm, 57 * mm]
+    )
+    stats.setStyle(TableStyle([
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+        ("TOPPADDING", (0, 0), (-1, -1), 0),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+    ]))
+    story.append(stats)
+    story.append(Spacer(1, 10 * mm))
+
+    story.append(Paragraph("Difficulty split", section))
+    split = Table(
+        [[badge("Easy", EASY, width=30 * mm),
+          Paragraph(str(easy), index_cell_bold),
+          badge("Medium", MEDIUM, width=30 * mm),
+          Paragraph(str(medium), index_cell_bold),
+          badge("Hard", HARD, width=30 * mm),
+          Paragraph(str(hard), index_cell_bold)]],
+        colWidths=[30 * mm, 15 * mm, 30 * mm, 15 * mm, 30 * mm, 15 * mm]
+    )
+    split.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 2),
+        ("TOPPADDING", (0, 0), (-1, -1), 0),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+    ]))
+    story.append(split)
+    story.append(Spacer(1, 12 * mm))
+
+    story.append(card(
+        [
+            Paragraph("HOW TO REVISE", eyebrow),
+            Paragraph(
+                "<b>1.</b> Read the title and question. "
+                "<b>2.</b> Cover the code and recall the pattern. "
+                "<b>3.</b> Check time and space complexity. "
+                "<b>4.</b> Only then inspect the solution.",
+                card_text
+            ),
+        ],
+        bg=BLUE_PALE,
+        border=colors.HexColor("#C8DDF7")
+    ))
+    story.append(Spacer(1, 8 * mm))
+    story.append(Paragraph(
+        "The goal is recall, not rereading. Try to solve the idea in your head before the code.",
+        small
+    ))
+    story.append(PageBreak())
+
+    # -------------------------
+    # Revision index
+    # -------------------------
+    story += [
+        Paragraph("Revision Index", index_title),
+        Paragraph(
+            "Use this page to jump to a problem by number, pattern, or difficulty.",
+            small
+        ),
+        Spacer(1, 5 * mm)
+    ]
+
+    rows = [[
+        Paragraph("NO.", index_cell_bold),
+        Paragraph("PROBLEM", index_cell_bold),
+        Paragraph("PATTERN", index_cell_bold),
+        Paragraph("LEVEL", index_cell_bold),
+    ]]
+    for p in problems:
+        rows.append([
+            Paragraph(p["number"], index_cell),
+            Paragraph(p["title"], index_cell),
+            Paragraph(p["pattern"], index_cell),
+            Paragraph(p["difficulty"] or "—", index_cell),
+        ])
+
+    idx_table = Table(
+        rows,
+        colWidths=[15 * mm, 66 * mm, 56 * mm, 25 * mm],
+        repeatRows=1
+    )
+    idx_table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), NAVY),
+        ("TEXTCOLOR", (0, 0), (-1, 0), WHITE),
+        ("FONTNAME", (0, 0), (-1, 0), "DejaVu-Bold"),
+        ("GRID", (0, 0), (-1, -1), 0.35, BORDER),
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [WHITE, SOFT]),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 5),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 5),
+        ("TOPPADDING", (0, 0), (-1, -1), 4),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+    ]))
+    story.append(idx_table)
+    story.append(PageBreak())
+
+    # -------------------------
+    # Problem pages
+    # -------------------------
     for idx, p in enumerate(problems):
-        story.append(Paragraph(p["title"], title_style))
         story.append(Paragraph(
-            f"Difficulty: {p['difficulty'] or '—'} &nbsp;&nbsp; | &nbsp;&nbsp; Pattern: {p['pattern']}",
-            meta_style
+            f"PROBLEM {p['number']}", eyebrow
         ))
+        story.append(Paragraph(
+            escape(p["title"]), problem_title
+        ))
+        story.append(pill_row(p))
+        story.append(Spacer(1, 1 * mm))
 
-        story.append(Paragraph("Question", section_style))
-        story.append(Paragraph(p["question"] or "See the original LeetCode statement in the problem README.", body_style))
+        question_text = escape(
+            p["question"] or
+            "See the original LeetCode statement in the problem README."
+        )
+        story.append(Paragraph("QUESTION", eyebrow))
+        story.append(card(
+            Paragraph(question_text, card_text),
+            bg=WHITE,
+            border=BORDER,
+            pad=9
+        ))
+        story.append(Spacer(1, 4 * mm))
 
         if p["example"]:
-            story.append(Paragraph("Example", section_style))
-            story.append(Preformatted(escape(p["example"]), ParagraphStyle(
-                "Example", fontName="DejaVuMono", fontSize=9.5, leading=11.5,
-                leftIndent=5, spaceAfter=3
-            )))
+            story.append(Paragraph("EXAMPLE", eyebrow))
+            # Preformatted keeps all programming symbols exactly as written.
+            ex = Preformatted(
+                p["example"],
+                ParagraphStyle(
+                    f"Example{idx}", fontName="DejaVuMono", fontSize=8.3,
+                    leading=10.1, textColor=TEXT
+                ),
+                maxLineLength=100
+            )
+            story.append(card(ex, bg=SOFT, border=BORDER, pad=7))
+            story.append(Spacer(1, 4 * mm))
 
-        story.append(Paragraph("Short Answer / Approach", section_style))
-        story.append(Paragraph(
-            "Use the repository solution below. The key pattern is " + p["pattern"] + ".",
-            body_style
-        ))
-        story.append(Paragraph("Complexity", section_style))
-        story.append(Paragraph(p["complexity"], body_style))
+        recall = Table([[
+            [Paragraph("PATTERN", card_label), Paragraph(escape(p["pattern"]), card_text)],
+            [Paragraph("TIME", card_label), Paragraph(escape(p["time"]), card_text)],
+            [Paragraph("SPACE", card_label), Paragraph(escape(p["space"]), card_text)],
+        ]], colWidths=[57 * mm, 57 * mm, 57 * mm])
+        recall.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, -1), BLUE_PALE),
+            ("BOX", (0, 0), (-1, -1), 0.7, colors.HexColor("#C8DDF7")),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 7),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+            ("TOPPADDING", (0, 0), (-1, -1), 6),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+        ]))
+        story.append(recall)
+        story.append(Spacer(1, 5 * mm))
 
-        story.append(Paragraph(f"{p['language']} Solution", section_style))
         lines = p["code"].count("\n") + 1
         if lines <= 28:
-            fs, leading = 10.2, 12.0
-        elif lines <= 38:
-            fs, leading = 9.4, 11.0
-        elif lines <= 50:
             fs, leading = 8.5, 9.9
+        elif lines <= 38:
+            fs, leading = 7.8, 9.1
+        elif lines <= 50:
+            fs, leading = 7.15, 8.35
         else:
-            fs, leading = 7.6, 8.8
-        code_style = ParagraphStyle(
-            f"Code{idx}", fontName="DejaVuMono", fontSize=fs, leading=leading,
-            leftIndent=5, rightIndent=5, spaceBefore=1, spaceAfter=1,
-            borderWidth=0.5, borderPadding=5,
-            borderColor=colors.HexColor("#B8C7D9"),
-            backColor=colors.HexColor("#F5F7FA")
+            fs, leading = 6.55, 7.7
+
+        story.append(Paragraph("SOLUTION", eyebrow))
+        story += code_block(
+            p["code"],
+            f"{p['language']}  •  {p['number']}",
+            fs=fs,
+            leading=leading
         )
-        # Escape source so C++/HTML-like syntax such as vector<int> is never treated as markup.
-        story.append(Preformatted(escape(p["code"]), code_style, maxLineLength=95))
+        story.append(Spacer(1, 4 * mm))
+        story.append(card(
+            Paragraph(
+                "<b>Revision cue:</b> Before moving on, explain the "
+                "core idea in one or two sentences without looking back.",
+                tip_text
+            ),
+            bg=BLUE_PALE,
+            border=colors.HexColor("#C8DDF7"),
+            pad=7
+        ))
         story.append(Spacer(1, 2 * mm))
-        story.append(Paragraph(f"Problem {idx + 1} of {len(problems)}", small_style))
+        story.append(Paragraph(
+            f"{idx + 1} / {len(problems)}",
+            tiny
+        ))
+
         if idx != len(problems) - 1:
             story.append(PageBreak())
 
-    doc.build(story, onFirstPage=footer, onLaterPages=footer)
+    doc.build(
+        story,
+        onFirstPage=cover_page,
+        onLaterPages=lambda canvas, doc: (
+            top_accent(canvas, doc),
+            footer(canvas, doc)
+        )
+    )
     print(f"Generated {OUTPUT} with {len(problems)} problems.")
 
 
