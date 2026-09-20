@@ -62,11 +62,11 @@ cover_sub = ParagraphStyle(
 )
 eyebrow = ParagraphStyle(
     "Eyebrow", fontName="DejaVu-Bold", fontSize=8.5, leading=10,
-    textColor=BLUE, spaceAfter=4
+    textColor=PURPLE, spaceAfter=4
 )
 problem_title = ParagraphStyle(
     "ProblemTitle", fontName="DejaVu-Bold", fontSize=22, leading=26,
-    textColor=NAVY, spaceAfter=7
+    textColor=PURPLE_DARK, spaceAfter=7
 )
 section = ParagraphStyle(
     "Section", fontName="DejaVu-Bold", fontSize=10.2, leading=12.5,
@@ -94,7 +94,7 @@ card_label = ParagraphStyle(
 )
 index_title = ParagraphStyle(
     "IndexTitle", fontName="DejaVu-Bold", fontSize=22, leading=26,
-    textColor=NAVY, spaceAfter=3
+    textColor=PURPLE_DARK, spaceAfter=3
 )
 index_cell = ParagraphStyle(
     "IndexCell", fontName="DejaVu", fontSize=8.4, leading=10.5,
@@ -246,7 +246,7 @@ def pill_row(p):
     diff = p["difficulty"] or "Unknown"
     items = [
         badge(diff, difficulty_color(diff)),
-        badge(p["pattern"], BLUE, width=41 * mm),
+        badge(p["pattern"], PURPLE, width=41 * mm),
         badge(p["language"], NAVY, width=25 * mm),
     ]
     row = Table([items], hAlign="LEFT", colWidths=[32 * mm, 46 * mm, 29 * mm])
@@ -293,29 +293,78 @@ def stat_card(label, value):
     return t
 
 
-def code_block(code, label, fs=7.65, leading=8.9):
-    safe_label = escape(label)
-    header = Table([[Paragraph(safe_label, code_label)]], colWidths=[PAGE_W - 2 * MARGIN_X])
+def syntax_highlight(code, lexer_name):
+    try:
+        lexer = get_lexer_by_name(lexer_name)
+    except Exception:
+        lexer = TextLexer()
+
+    def color_for(token):
+        if token in Token.Comment:
+            return "#6A9955"       # VS Code comment green
+        if token in Token.Keyword or token in Token.Keyword.Type:
+            return "#C586C0"       # keyword purple
+        if token in Token.Name.Class:
+            return "#4EC9B0"       # class/type teal
+        if token in Token.Name.Function or token in Token.Name.Function.Magic:
+            return "#DCDCAA"       # function yellow
+        if token in Token.Name.Builtin:
+            return "#569CD6"       # builtin blue
+        if token in Token.Literal.String:
+            return "#CE9178"       # string orange
+        if token in Token.Literal.Number:
+            return "#B5CEA8"       # number green
+        if token in Token.Operator:
+            return "#D4D4D4"
+        if token in Token.Punctuation:
+            return "#D4D4D4"
+        return "#D4D4D4"
+
+    parts = []
+    for token, value in lex(code, lexer):
+        parts.append(
+            f'<font color="{color_for(token)}">{xml_escape(value)}</font>'
+        )
+    return "".join(parts)
+
+
+def code_block(p, fs=7.65, leading=8.9):
+    header = Table(
+        [[Paragraph(
+            f'{escape(p["language"])}  •  LeetCode Solution  •  #{escape(p["number"])}',
+            code_label
+        )]],
+        colWidths=[PAGE_W - 2 * MARGIN_X]
+    )
     header.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, -1), NAVY),
+        ("BACKGROUND", (0, 0), (-1, -1), PURPLE_DARK),
         ("LEFTPADDING", (0, 0), (-1, -1), 8),
         ("RIGHTPADDING", (0, 0), (-1, -1), 8),
         ("TOPPADDING", (0, 0), (-1, -1), 5),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
     ]))
 
-    # Preformatted renders source literally. Do NOT HTML-escape the source;
-    # escaping would show vector<int> as vector&lt;int&gt; in the PDF.
-    code_p = Preformatted(
-        code,
-        ParagraphStyle(
-            "Code", fontName="DejaVuMono", fontSize=fs, leading=leading,
-            textColor=colors.HexColor("#E5E7EB"),
-            leftIndent=0, rightIndent=0, spaceBefore=0, spaceAfter=0,
-        ),
-        maxLineLength=102
+    lexer_names = {
+        "C++": "cpp", "C": "c", "Python": "python", "Java": "java",
+        "JavaScript": "javascript", "TypeScript": "typescript",
+        "Go": "go", "Rust": "rust", "C#": "csharp", "Kotlin": "kotlin",
+        "Swift": "swift", "PHP": "php", "Ruby": "ruby"
+    }
+    highlighted = syntax_highlight(
+        p["code"], lexer_names.get(p["language"], "text")
     )
-    body_t = Table([[code_p]], colWidths=[PAGE_W - 2 * MARGIN_X])
+
+    source = XPreformatted(
+        highlighted,
+        ParagraphStyle(
+            f'Code{p["number"]}', fontName="DejaVuMono",
+            fontSize=fs, leading=leading,
+            textColor=colors.HexColor("#D4D4D4")
+        ),
+        maxLineLength=105
+    )
+
+    body_t = Table([[source]], colWidths=[PAGE_W - 2 * MARGIN_X])
     body_t.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), CODE_BG),
         ("BOX", (0, 0), (-1, -1), 0.7, CODE_BG),
@@ -327,25 +376,106 @@ def code_block(code, label, fs=7.65, leading=8.9):
     ]))
     return [header, body_t]
 
+def abstract_blob(canvas, x, y, w, h, top_color, bottom_color):
+    """Draw layered organic shapes inspired by the supplied annual-report template."""
+    canvas.saveState()
+
+    canvas.setFillColor(bottom_color)
+    p = canvas.beginPath()
+    p.moveTo(x, y + h * 0.55)
+    p.curveTo(
+        x + w * 0.12, y + h * 0.98,
+        x + w * 0.46, y + h * 0.90,
+        x + w * 0.62, y + h * 0.68
+    )
+    p.curveTo(
+        x + w * 0.76, y + h * 0.48,
+        x + w * 0.92, y + h * 0.70,
+        x + w, y + h * 0.40
+    )
+    p.lineTo(x + w, y)
+    p.lineTo(x, y)
+    p.close()
+    canvas.drawPath(p, fill=1, stroke=0)
+
+    canvas.setFillColor(top_color)
+    p2 = canvas.beginPath()
+    p2.moveTo(x, y + h * 0.78)
+    p2.curveTo(
+        x + w * 0.18, y + h * 1.04,
+        x + w * 0.56, y + h * 0.76,
+        x + w * 0.78, y + h * 0.86
+    )
+    p2.curveTo(
+        x + w * 0.92, y + h * 0.92,
+        x + w * 0.98, y + h * 0.60,
+        x + w, y + h * 0.50
+    )
+    p2.lineTo(x + w, y + h)
+    p2.lineTo(x, y + h)
+    p2.close()
+    canvas.drawPath(p2, fill=1, stroke=0)
+    canvas.restoreState()
+
 
 def footer(canvas, doc):
     canvas.saveState()
-    # Minimal footer; page body carries the stronger hierarchy.
-    canvas.setStrokeColor(BORDER)
-    canvas.setLineWidth(0.5)
-    canvas.line(MARGIN_X, 9 * mm, PAGE_W - MARGIN_X, 9 * mm)
-    canvas.setFont("DejaVu", 7.8)
-    canvas.setFillColor(MUTED)
-    canvas.drawString(MARGIN_X, 5.8 * mm, "My Leetcode • Revision Notes")
-    canvas.drawRightString(PAGE_W - MARGIN_X, 5.8 * mm, f"Page {doc.page}")
+    canvas.setFillColor(PURPLE)
+    canvas.rect(0, 0, PAGE_W, 7.5 * mm, fill=1, stroke=0)
+    canvas.setFont("DejaVu-Bold", 7.5)
+    canvas.setFillColor(WHITE)
+    canvas.drawString(MARGIN_X, 2.7 * mm, "MY LEETCODE  •  REVISION HANDBOOK")
+    canvas.drawRightString(PAGE_W - MARGIN_X, 2.7 * mm, f"{doc.page:02d}")
     canvas.restoreState()
 
 
 def top_accent(canvas, doc):
     canvas.saveState()
-    canvas.setFillColor(BLUE)
-    canvas.rect(0, PAGE_H - 2.8 * mm, PAGE_W, 2.8 * mm, fill=1, stroke=0)
+    canvas.setFillColor(PURPLE_DARK)
+    canvas.rect(0, PAGE_H - 2.5 * mm, PAGE_W, 2.5 * mm, fill=1, stroke=0)
     canvas.restoreState()
+
+
+def cover_page(canvas, doc):
+    canvas.saveState()
+    canvas.setFillColor(CYAN)
+    canvas.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+
+    canvas.setFillColor(WHITE)
+    canvas.roundRect(
+        8 * mm, 8 * mm, PAGE_W - 16 * mm, PAGE_H - 16 * mm,
+        3 * mm, fill=1, stroke=0
+    )
+
+    # Large top/bottom artwork matching the visual language of the reference.
+    abstract_blob(
+        canvas, 8 * mm, PAGE_H - 87 * mm, PAGE_W - 16 * mm, 76 * mm,
+        MAGENTA, PURPLE
+    )
+    abstract_blob(
+        canvas, 8 * mm, 10 * mm, PAGE_W - 16 * mm, 48 * mm,
+        PURPLE, MAGENTA
+    )
+
+    canvas.setFillColor(PURPLE_DARK)
+    canvas.setFont("DejaVu-Bold", 7.5)
+    canvas.drawString(18 * mm, PAGE_H - 22 * mm, "XERNIX  /  DSA")
+    canvas.setFont("DejaVu", 6.7)
+    canvas.drawString(18 * mm, PAGE_H - 27 * mm, "INTERVIEW REVISION HANDBOOK")
+
+    canvas.setFont("DejaVu-Bold", 7.5)
+    canvas.drawRightString(
+        PAGE_W - 18 * mm, 16 * mm,
+        "LEETCODE  •  PATTERNS  •  CODE"
+    )
+    canvas.restoreState()
+
+    # Content is drawn by the normal story flow.
+    footer(canvas, doc)
+
+
+def cover_content():
+    return
 
 
 def cover_page(canvas, doc):
@@ -419,10 +549,10 @@ def build():
     story += [
         Spacer(1, 26 * mm),
         Paragraph("MY LEETCODE", eyebrow),
-        Paragraph("Revision Notes", cover_title),
+        Paragraph("Interview Revision", cover_title),
         Paragraph(
-            "A clean interview-focused handbook for revising patterns, "
-            "complexities, and solutions without visual clutter.",
+            "A visual DSA handbook for patterns, complexity, and LeetCode solutions — "
+            "made to keep your revision focused.",
             cover_sub
         ),
         Spacer(1, 11 * mm),
