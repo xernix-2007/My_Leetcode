@@ -368,8 +368,7 @@ def code_block(p, fs=7.65, leading=8.9):
             f'Code{p["number"]}', fontName="DejaVuMono",
             fontSize=fs, leading=leading,
             textColor=colors.HexColor("#D4D4D4")
-        ),
-        maxLineLength=105
+        )
     )
 
     body_t = Table([[source]], colWidths=[PAGE_W - 2 * MARGIN_X])
