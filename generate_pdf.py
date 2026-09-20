@@ -173,22 +173,24 @@ def draw_code(c,code,language,x,y,w,h,number):
     xp.drawOn(c,x+11,y+h-34-ah)
 
 def visual_card(c,pattern,x,y,w,h):
-    draw_round_rect(c,x,y,w,h,colors.HexColor("#FBFAFE"),stroke=BLUE_BORDER,radius=7)
-    c.setFillColor(PURPLE); c.setFont("DejaVu-Bold",9.3); c.drawString(x+13,y+h-18,"Pattern")
-    c.setFillColor(MUTED); c.setFont("DejaVu",6.4); c.drawRightString(x+w-13,y+h-18,"How to think")
-    if "hash" in pattern.lower(): steps=["Need target","Check complement","Store index"]
-    elif "linked" in pattern.lower(): steps=["Current node","Carry / move","Build result"]
-    elif "binary search" in pattern.lower(): steps=["Set bounds","Check mid","Discard half"]
-    elif "sliding" in pattern.lower(): steps=["Expand","Track state","Shrink"]
-    elif "two pointer" in pattern.lower(): steps=["Left / right","Compare","Move pointer"]
-    elif "tree" in pattern.lower(): steps=["Visit node","Recurse","Combine"]
-    else: steps=["Understand input","Apply pattern","Build result"]
-    base_y=y+25; step_w=(w-38)/3
-    for i,txt in enumerate(steps):
-        xx=x+14+i*(step_w+5)
-        draw_round_rect(c,xx,base_y,step_w,25,WHITE,stroke=colors.HexColor("#E0D7F1"),radius=5)
-        c.setFillColor(PURPLE); c.setFont("DejaVu-Bold",6); c.drawString(xx+7,base_y+15,f"0{i+1}")
-        draw_para(c,txt,xx+7,base_y+13,step_w-13,style(f"flow_{i}_{pattern}","DejaVu-Bold",6.1,7.2,TEXT),17)
+    draw_round_rect(c,x,y,w,h,WHITE,stroke=BLUE_BORDER,radius=7)
+    c.setFillColor(PURPLE); c.setFont("DejaVu-Bold",10); c.drawString(x+34,y+h-21,"Visual Representation")
+    c.setFont("DejaVu-Bold",15); c.drawString(x+11,y+h-23,"↗")
+    cy=y+h/2-3
+    if "linked list" in pattern.lower():
+        for i,lab in enumerate(["2","4","3"]):
+            xx=x+43+i*45; c.setFillColor(BLUE_LIGHT); c.setStrokeColor(BLUE); c.circle(xx,cy+6,10,fill=1,stroke=1)
+            c.setFillColor(NAVY); c.setFont("DejaVu-Bold",8); c.drawCentredString(xx,cy+3,lab)
+            if i<2:
+                c.setStrokeColor(BLUE); c.line(xx+11,cy+6,xx+34,cy+6); c.line(xx+30,cy+9,xx+34,cy+6); c.line(xx+30,cy+3,xx+34,cy+6)
+        c.setFillColor(MAGENTA); c.setFont("DejaVu-Bold",7); c.drawString(x+12,y+20,"pattern → nodes → result")
+    else:
+        xx=x+14
+        for i,lab in enumerate(["INPUT","PATTERN","OUTPUT"]):
+            ww=[43,55,43][i]; draw_round_rect(c,xx,cy-2,ww,24,[BLUE_LIGHT,LAVENDER,PINK_LIGHT][i],radius=12)
+            c.setFillColor([BLUE,PURPLE,MAGENTA][i]); c.setFont("DejaVu-Bold",6.5); c.drawCentredString(xx+ww/2,cy+7,lab)
+            if i<2: c.setStrokeColor(MUTED); c.line(xx+ww+4,cy+10,xx+ww+14,cy+10)
+            xx+=ww+18
 
 def metric_card(c,x,y,w,h,title,value,fill,accent):
     draw_round_rect(c,x,y,w,h,fill,radius=7); c.setFillColor(accent); c.circle(x+18,y+h/2,11,fill=1,stroke=0)
