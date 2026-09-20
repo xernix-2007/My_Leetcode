@@ -1,5 +1,9 @@
 from pathlib import Path
 from html import unescape, escape
+from pygments import lex
+from pygments.lexers import TextLexer, get_lexer_by_name
+from pygments.token import Token
+from xml.sax.saxutils import escape as xml_escape
 import re
 
 from reportlab.lib import colors
