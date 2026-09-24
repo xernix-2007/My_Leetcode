@@ -92,6 +92,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
 | [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
 | [1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit](https://github.com/xernix-2007/My_Leetcode/tree/master/1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit) |
+| [3867-sum-of-gcd-of-formed-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/3867-sum-of-gcd-of-formed-pairs) |
 ## Hash Table
 |  |
 | ------- |
@@ -158,6 +159,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
 | [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
 | [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
+| [3867-sum-of-gcd-of-formed-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/3867-sum-of-gcd-of-formed-pairs) |
 ## Quickselect
 |  |
 | ------- |
@@ -175,6 +177,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
+| [3867-sum-of-gcd-of-formed-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/3867-sum-of-gcd-of-formed-pairs) |
 ## Greedy
 |  |
 | ------- |
@@ -188,6 +191,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | ------- |
 | [0342-power-of-four](https://github.com/xernix-2007/My_Leetcode/tree/master/0342-power-of-four) |
 | [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
+| [3867-sum-of-gcd-of-formed-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/3867-sum-of-gcd-of-formed-pairs) |
 ## Bit Manipulation
 |  |
 | ------- |
@@ -200,4 +204,12 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit](https://github.com/xernix-2007/My_Leetcode/tree/master/1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit) |
+## Simulation
+|  |
+| ------- |
+| [3867-sum-of-gcd-of-formed-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/3867-sum-of-gcd-of-formed-pairs) |
+## Number Theory
+|  |
+| ------- |
+| [3867-sum-of-gcd-of-formed-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/3867-sum-of-gcd-of-formed-pairs) |
 <!---LeetCode Topics End-->
