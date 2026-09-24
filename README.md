@@ -91,6 +91,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0239-sliding-window-maximum](https://github.com/xernix-2007/My_Leetcode/tree/master/0239-sliding-window-maximum) |
 | [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
 | [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
+| [1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit](https://github.com/xernix-2007/My_Leetcode/tree/master/1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit) |
 ## Hash Table
 |  |
 | ------- |
@@ -122,6 +123,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0076-minimum-window-substring](https://github.com/xernix-2007/My_Leetcode/tree/master/0076-minimum-window-substring) |
 | [0209-minimum-size-subarray-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0209-minimum-size-subarray-sum) |
 | [0239-sliding-window-maximum](https://github.com/xernix-2007/My_Leetcode/tree/master/0239-sliding-window-maximum) |
+| [1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit](https://github.com/xernix-2007/My_Leetcode/tree/master/1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit) |
 ## Prefix Sum
 |  |
 | ------- |
@@ -130,15 +132,18 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0239-sliding-window-maximum](https://github.com/xernix-2007/My_Leetcode/tree/master/0239-sliding-window-maximum) |
+| [1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit](https://github.com/xernix-2007/My_Leetcode/tree/master/1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit) |
 ## Heap (Priority Queue)
 |  |
 | ------- |
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
 | [0239-sliding-window-maximum](https://github.com/xernix-2007/My_Leetcode/tree/master/0239-sliding-window-maximum) |
+| [1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit](https://github.com/xernix-2007/My_Leetcode/tree/master/1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit) |
 ## Monotonic Queue
 |  |
 | ------- |
 | [0239-sliding-window-maximum](https://github.com/xernix-2007/My_Leetcode/tree/master/0239-sliding-window-maximum) |
+| [1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit](https://github.com/xernix-2007/My_Leetcode/tree/master/1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit) |
 ## Range Minimum/Maximum Query
 |  |
 | ------- |
@@ -191,4 +196,8 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0342-power-of-four](https://github.com/xernix-2007/My_Leetcode/tree/master/0342-power-of-four) |
+## Ordered Set
+|  |
+| ------- |
+| [1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit](https://github.com/xernix-2007/My_Leetcode/tree/master/1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit) |
 <!---LeetCode Topics End-->
