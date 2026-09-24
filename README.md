@@ -90,6 +90,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
 | [0239-sliding-window-maximum](https://github.com/xernix-2007/My_Leetcode/tree/master/0239-sliding-window-maximum) |
 | [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
+| [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
 ## Hash Table
 |  |
 | ------- |
@@ -151,6 +152,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | ------- |
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
 | [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
+| [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
 ## Quickselect
 |  |
 | ------- |
@@ -180,6 +182,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0342-power-of-four](https://github.com/xernix-2007/My_Leetcode/tree/master/0342-power-of-four) |
+| [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
 ## Bit Manipulation
 |  |
 | ------- |
