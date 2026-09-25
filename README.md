@@ -86,6 +86,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0041-first-missing-positive](https://github.com/xernix-2007/My_Leetcode/tree/master/0041-first-missing-positive) |
 | [0081-search-in-rotated-sorted-array-ii](https://github.com/xernix-2007/My_Leetcode/tree/master/0081-search-in-rotated-sorted-array-ii) |
 | [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
+| [0135-candy](https://github.com/xernix-2007/My_Leetcode/tree/master/0135-candy) |
 | [0209-minimum-size-subarray-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0209-minimum-size-subarray-sum) |
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
 | [0239-sliding-window-maximum](https://github.com/xernix-2007/My_Leetcode/tree/master/0239-sliding-window-maximum) |
@@ -182,6 +183,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 ## Greedy
 |  |
 | ------- |
+| [0135-candy](https://github.com/xernix-2007/My_Leetcode/tree/master/0135-candy) |
 | [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
 ## Quicksort
 |  |
