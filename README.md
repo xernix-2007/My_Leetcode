@@ -94,6 +94,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
 | [0896-monotonic-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0896-monotonic-array) |
 | [1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit](https://github.com/xernix-2007/My_Leetcode/tree/master/1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit) |
+| [2426-number-of-pairs-satisfying-inequality](https://github.com/xernix-2007/My_Leetcode/tree/master/2426-number-of-pairs-satisfying-inequality) |
 | [3867-sum-of-gcd-of-formed-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/3867-sum-of-gcd-of-formed-pairs) |
 ## Hash Table
 |  |
@@ -111,6 +112,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | ------- |
 | [0081-search-in-rotated-sorted-array-ii](https://github.com/xernix-2007/My_Leetcode/tree/master/0081-search-in-rotated-sorted-array-ii) |
 | [0209-minimum-size-subarray-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0209-minimum-size-subarray-sum) |
+| [2426-number-of-pairs-satisfying-inequality](https://github.com/xernix-2007/My_Leetcode/tree/master/2426-number-of-pairs-satisfying-inequality) |
 ## String
 |  |
 | ------- |
@@ -155,6 +157,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
+| [2426-number-of-pairs-satisfying-inequality](https://github.com/xernix-2007/My_Leetcode/tree/master/2426-number-of-pairs-satisfying-inequality) |
 ## Sorting
 |  |
 | ------- |
@@ -207,6 +210,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit](https://github.com/xernix-2007/My_Leetcode/tree/master/1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit) |
+| [2426-number-of-pairs-satisfying-inequality](https://github.com/xernix-2007/My_Leetcode/tree/master/2426-number-of-pairs-satisfying-inequality) |
 ## Simulation
 |  |
 | ------- |
@@ -215,4 +219,16 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [3867-sum-of-gcd-of-formed-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/3867-sum-of-gcd-of-formed-pairs) |
+## Binary Indexed Tree
+|  |
+| ------- |
+| [2426-number-of-pairs-satisfying-inequality](https://github.com/xernix-2007/My_Leetcode/tree/master/2426-number-of-pairs-satisfying-inequality) |
+## Segment Tree
+|  |
+| ------- |
+| [2426-number-of-pairs-satisfying-inequality](https://github.com/xernix-2007/My_Leetcode/tree/master/2426-number-of-pairs-satisfying-inequality) |
+## Merge Sort
+|  |
+| ------- |
+| [2426-number-of-pairs-satisfying-inequality](https://github.com/xernix-2007/My_Leetcode/tree/master/2426-number-of-pairs-satisfying-inequality) |
 <!---LeetCode Topics End-->
