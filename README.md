@@ -64,6 +64,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0098-validate-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0098-validate-binary-search-tree) |
 | [0100-same-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0100-same-tree) |
 | [0101-symmetric-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0101-symmetric-tree) |
+| [0701-insert-into-a-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0701-insert-into-a-binary-search-tree) |
 ## Depth-First Search
 |  |
 | ------- |
@@ -78,6 +79,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0098-validate-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0098-validate-binary-search-tree) |
 | [0100-same-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0100-same-tree) |
 | [0101-symmetric-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0101-symmetric-tree) |
+| [0701-insert-into-a-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0701-insert-into-a-binary-search-tree) |
 ## Array
 |  |
 | ------- |
@@ -173,6 +175,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0098-validate-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0098-validate-binary-search-tree) |
+| [0701-insert-into-a-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0701-insert-into-a-binary-search-tree) |
 ## Breadth-First Search
 |  |
 | ------- |
