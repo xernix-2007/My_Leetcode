@@ -97,6 +97,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0896-monotonic-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0896-monotonic-array) |
 | [1051-height-checker](https://github.com/xernix-2007/My_Leetcode/tree/master/1051-height-checker) |
 | [1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit](https://github.com/xernix-2007/My_Leetcode/tree/master/1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit) |
+| [1980-find-unique-binary-string](https://github.com/xernix-2007/My_Leetcode/tree/master/1980-find-unique-binary-string) |
 | [2426-number-of-pairs-satisfying-inequality](https://github.com/xernix-2007/My_Leetcode/tree/master/2426-number-of-pairs-satisfying-inequality) |
 | [3867-sum-of-gcd-of-formed-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/3867-sum-of-gcd-of-formed-pairs) |
 ## Hash Table
@@ -106,6 +107,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0041-first-missing-positive](https://github.com/xernix-2007/My_Leetcode/tree/master/0041-first-missing-positive) |
 | [0076-minimum-window-substring](https://github.com/xernix-2007/My_Leetcode/tree/master/0076-minimum-window-substring) |
 | [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
+| [1980-find-unique-binary-string](https://github.com/xernix-2007/My_Leetcode/tree/master/1980-find-unique-binary-string) |
 ## Union-Find
 |  |
 | ------- |
@@ -121,6 +123,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | ------- |
 | [0014-longest-common-prefix](https://github.com/xernix-2007/My_Leetcode/tree/master/0014-longest-common-prefix) |
 | [0076-minimum-window-substring](https://github.com/xernix-2007/My_Leetcode/tree/master/0076-minimum-window-substring) |
+| [1980-find-unique-binary-string](https://github.com/xernix-2007/My_Leetcode/tree/master/1980-find-unique-binary-string) |
 ## Trie
 |  |
 | ------- |
@@ -244,4 +247,8 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [1051-height-checker](https://github.com/xernix-2007/My_Leetcode/tree/master/1051-height-checker) |
+## Backtracking
+|  |
+| ------- |
+| [1980-find-unique-binary-string](https://github.com/xernix-2007/My_Leetcode/tree/master/1980-find-unique-binary-string) |
 <!---LeetCode Topics End-->
