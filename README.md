@@ -123,6 +123,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0014-longest-common-prefix](https://github.com/xernix-2007/My_Leetcode/tree/master/0014-longest-common-prefix) |
+| [0065-valid-number](https://github.com/xernix-2007/My_Leetcode/tree/master/0065-valid-number) |
 | [0076-minimum-window-substring](https://github.com/xernix-2007/My_Leetcode/tree/master/0076-minimum-window-substring) |
 | [0796-rotate-string](https://github.com/xernix-2007/My_Leetcode/tree/master/0796-rotate-string) |
 | [1980-find-unique-binary-string](https://github.com/xernix-2007/My_Leetcode/tree/master/1980-find-unique-binary-string) |
