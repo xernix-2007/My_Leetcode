@@ -124,6 +124,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | ------- |
 | [0014-longest-common-prefix](https://github.com/xernix-2007/My_Leetcode/tree/master/0014-longest-common-prefix) |
 | [0076-minimum-window-substring](https://github.com/xernix-2007/My_Leetcode/tree/master/0076-minimum-window-substring) |
+| [0796-rotate-string](https://github.com/xernix-2007/My_Leetcode/tree/master/0796-rotate-string) |
 | [1980-find-unique-binary-string](https://github.com/xernix-2007/My_Leetcode/tree/master/1980-find-unique-binary-string) |
 ## Trie
 |  |
@@ -253,4 +254,8 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [1980-find-unique-binary-string](https://github.com/xernix-2007/My_Leetcode/tree/master/1980-find-unique-binary-string) |
+## String Matching
+|  |
+| ------- |
+| [0796-rotate-string](https://github.com/xernix-2007/My_Leetcode/tree/master/0796-rotate-string) |
 <!---LeetCode Topics End-->
