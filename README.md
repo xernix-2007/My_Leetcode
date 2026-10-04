@@ -86,6 +86,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0001-two-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0001-two-sum) |
 | [0014-longest-common-prefix](https://github.com/xernix-2007/My_Leetcode/tree/master/0014-longest-common-prefix) |
 | [0041-first-missing-positive](https://github.com/xernix-2007/My_Leetcode/tree/master/0041-first-missing-positive) |
+| [0066-plus-one](https://github.com/xernix-2007/My_Leetcode/tree/master/0066-plus-one) |
 | [0081-search-in-rotated-sorted-array-ii](https://github.com/xernix-2007/My_Leetcode/tree/master/0081-search-in-rotated-sorted-array-ii) |
 | [0128-longest-consecutive-sequence](https://github.com/xernix-2007/My_Leetcode/tree/master/0128-longest-consecutive-sequence) |
 | [0135-candy](https://github.com/xernix-2007/My_Leetcode/tree/master/0135-candy) |
@@ -207,6 +208,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 ## Math
 |  |
 | ------- |
+| [0066-plus-one](https://github.com/xernix-2007/My_Leetcode/tree/master/0066-plus-one) |
 | [0342-power-of-four](https://github.com/xernix-2007/My_Leetcode/tree/master/0342-power-of-four) |
 | [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
 | [3867-sum-of-gcd-of-formed-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/3867-sum-of-gcd-of-formed-pairs) |
