@@ -222,6 +222,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 ## Recursion
 |  |
 | ------- |
+| [0025-reverse-nodes-in-k-group](https://github.com/xernix-2007/My_Leetcode/tree/master/0025-reverse-nodes-in-k-group) |
 | [0342-power-of-four](https://github.com/xernix-2007/My_Leetcode/tree/master/0342-power-of-four) |
 ## Ordered Set
 |  |
@@ -268,4 +269,8 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0155-min-stack](https://github.com/xernix-2007/My_Leetcode/tree/master/0155-min-stack) |
+## Linked List
+|  |
+| ------- |
+| [0025-reverse-nodes-in-k-group](https://github.com/xernix-2007/My_Leetcode/tree/master/0025-reverse-nodes-in-k-group) |
 <!---LeetCode Topics End-->
