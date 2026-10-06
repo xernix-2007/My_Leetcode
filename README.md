@@ -57,6 +57,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0094-binary-tree-inorder-traversal](https://github.com/xernix-2007/My_Leetcode/tree/master/0094-binary-tree-inorder-traversal) |
+| [0155-min-stack](https://github.com/xernix-2007/My_Leetcode/tree/master/0155-min-stack) |
 ## Tree
 |  |
 | ------- |
@@ -263,4 +264,8 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0796-rotate-string](https://github.com/xernix-2007/My_Leetcode/tree/master/0796-rotate-string) |
+## Design
+|  |
+| ------- |
+| [0155-min-stack](https://github.com/xernix-2007/My_Leetcode/tree/master/0155-min-stack) |
 <!---LeetCode Topics End-->
