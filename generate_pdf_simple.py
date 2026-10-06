@@ -7,7 +7,15 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, KeepTogether
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Paragraph,
+    Spacer,
+    PageBreak,
+    Table,
+    TableStyle,
+    Preformatted,
+)
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
@@ -22,60 +30,116 @@ LANGUAGES = {
 }
 
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
-pdfmetrics.registerFont(TTFont("SimpleSans", f"{FONT_DIR}/DejaVuSans.ttf"))
-pdfmetrics.registerFont(TTFont("SimpleBold", f"{FONT_DIR}/DejaVuSans-Bold.ttf"))
-pdfmetrics.registerFont(TTFont("SimpleMono", f"{FONT_DIR}/DejaVuSansMono.ttf"))
+pdfmetrics.registerFont(TTFont("LC_Sans", f"{FONT_DIR}/DejaVuSans.ttf"))
+pdfmetrics.registerFont(TTFont("LC_Bold", f"{FONT_DIR}/DejaVuSans-Bold.ttf"))
+pdfmetrics.registerFont(TTFont("LC_Mono", f"{FONT_DIR}/DejaVuSansMono.ttf"))
 
-BLACK = colors.HexColor("#20252D")
-GRAY = colors.HexColor("#69717D")
+INK = colors.HexColor("#20242B")
+MUTED = colors.HexColor("#68707A")
 ACCENT = colors.HexColor("#5B258C")
-LINE = colors.HexColor("#D9DDE3")
-CODE_BG = colors.HexColor("#F7F8FA")
-PAGE_W, PAGE_H = A4
+ACCENT_SOFT = colors.HexColor("#F4EFF8")
+LINE = colors.HexColor("#D7DCE2")
+CODE_BG = colors.HexColor("#F8F9FA")
+WHITE = colors.white
 
-def style(name, font="SimpleSans", size=9, leading=None, color=BLACK):
+PAGE_W, PAGE_H = A4
+LEFT = 18 * mm
+RIGHT = 18 * mm
+TOP = 16 * mm
+BOTTOM = 17 * mm
+CONTENT_W = PAGE_W - LEFT - RIGHT
+
+def style(name, font="LC_Sans", size=10, leading=None, color=INK):
     return ParagraphStyle(
-        name, fontName=font, fontSize=size,
-        leading=leading or size * 1.35, textColor=color
+        name,
+        fontName=font,
+        fontSize=size,
+        leading=leading or size * 1.4,
+        textColor=color,
+        spaceAfter=0,
     )
 
-TITLE = style("simple_title", "SimpleBold", 24, 29)
-SECTION = style("simple_section", "SimpleBold", 10.5, 13, ACCENT)
-BODY = style("simple_body", size=11, leading=15)
-META = style("simple_meta", size=9, leading=11, color=GRAY)
+TITLE = style("lc_title", "LC_Bold", 22, 26)
+META = style("lc_meta", size=9.2, leading=12, color=MUTED)
+SECTION = style("lc_section", "LC_Bold", 10.5, 13, ACCENT)
+BODY = style("lc_body", size=10.5, leading=15)
+BODY_BOLD = style("lc_body_bold", "LC_Bold", 10.5, 15)
+EXAMPLE = style("lc_example", "LC_Mono", 9.2, 13)
+CODE = style("lc_code", "LC_Mono", 10.3, 14, INK)
 
-def clean(text):
+def clean_html(text):
     text = re.sub(r"<br\s*/?>", "\n", text, flags=re.I)
-    text = re.sub(r"</p>|</li>|</pre>|</h[1-6]>", "\n", text, flags=re.I)
+    text = re.sub(r"</(p|li|pre|h[1-6])>", "\n", text, flags=re.I)
     text = re.sub(r"<[^>]+>", "", text)
-    text = unescape(text)
-    return re.sub(r"[ \t]+", " ", text).strip()
+    text = unescape(text).replace("\xa0", " ")
+    text = re.sub(r"[ \t]+", " ", text)
+    return text.strip()
+
+def clean_inline(text):
+    return clean_html(text).replace("\n", " ").strip()
+
+def extract_paragraphs(raw):
+    result = []
+    for item in re.findall(r"<p>(.*?)</p>", raw, re.I | re.S):
+        value = clean_inline(item)
+        if value:
+            result.append(value)
+    return result
+
+def extract_examples(raw):
+    result = []
+    for item in re.findall(r"<pre>(.*?)</pre>", raw, re.I | re.S):
+        value = clean_html(item)
+        if value:
+            result.append(value)
+    return result
+
+def extract_constraints(raw):
+    match = re.search(
+        r"<p>\s*<strong>Constraints:</strong>\s*</p>\s*(<ul>.*?</ul>)",
+        raw, re.I | re.S
+    )
+    if not match:
+        return []
+    return [
+        clean_inline(x)
+        for x in re.findall(r"<li>(.*?)</li>", match.group(1), re.I | re.S)
+        if clean_inline(x)
+    ]
+
+def extract_follow_up(raw):
+    match = re.search(
+        r"<strong>Follow-up:\s*</strong>(.*?)(?:<font|$)",
+        raw, re.I | re.S
+    )
+    return clean_inline(match.group(1)) if match else ""
 
 def read_readme(path):
     raw = path.read_text(encoding="utf-8", errors="ignore")
+
     h2 = (
         re.search(r"<h2>.*?>(.*?)</a></h2>", raw, re.I | re.S)
         or re.search(r"<h2>(.*?)</h2>", raw, re.I | re.S)
     )
-    title = clean(h2.group(1)) if h2 else path.parent.name
+    title = clean_inline(h2.group(1)) if h2 else path.parent.name
 
     h3 = re.search(r"<h3>(.*?)</h3>", raw, re.I | re.S)
-    difficulty = clean(h3.group(1)) if h3 else ""
+    difficulty = clean_inline(h3.group(1)) if h3 else ""
 
-    paragraphs = [
-        clean(x) for x in re.findall(r"<p>(.*?)</p>", raw, re.I | re.S)
+    paragraphs = extract_paragraphs(raw)
+    question = [
+        x for x in paragraphs
+        if not x.lower().startswith(("example", "constraints", "follow-up"))
     ]
-    paragraphs = [x for x in paragraphs if x]
-    question = next(
-        (x for x in paragraphs
-         if not x.lower().startswith(("example", "constraints", "follow-up"))),
-        ""
-    )
 
-    examples = [
-        clean(x) for x in re.findall(r"<pre>(.*?)</pre>", raw, re.I | re.S)
-    ]
-    return title, difficulty, question, next(iter(examples), "")
+    return {
+        "title": title,
+        "difficulty": difficulty,
+        "question": question,
+        "examples": extract_examples(raw),
+        "constraints": extract_constraints(raw),
+        "follow_up": extract_follow_up(raw),
+    }
 
 def find_solution(folder):
     files = [
@@ -95,6 +159,8 @@ def complexity(code):
         return "O(log n)", "O(1)"
     if "unordered_map" in compact or "unordered_set" in compact:
         return "O(n) average", "O(n)"
+    if len(re.findall(r"for\s*\(", code)) >= 2:
+        return "O(n²)", "O(1)"
     return "O(n)", "O(1)"
 
 def gather():
@@ -109,24 +175,26 @@ def gather():
         if not readme.exists() or solution is None:
             continue
 
-        title, difficulty, question, example = read_readme(readme)
+        data = read_readme(readme)
         code = (
             solution.read_text(encoding="utf-8", errors="ignore")
             .replace("\r\n", "\n")
             .replace("\r", "\n")
-            .strip()
+            .rstrip()
         )
 
-        time, space = complexity(code)
         number_match = re.match(r"^(\d+)-", folder.name)
         number = number_match.group(1) if number_match else folder.name
+        time, space = complexity(code)
 
         problems.append({
             "number": number,
-            "title": title,
-            "difficulty": difficulty,
-            "question": question,
-            "example": example,
+            "title": data["title"],
+            "difficulty": data["difficulty"],
+            "question": data["question"],
+            "examples": data["examples"],
+            "constraints": data["constraints"],
+            "follow_up": data["follow_up"],
             "code": code,
             "language": LANGUAGES[solution.suffix.lower()],
             "time": time,
@@ -135,41 +203,86 @@ def gather():
 
     return sorted(
         problems,
-        key=lambda p: int(p["number"]) if p["number"].isdigit() else 999999
+        key=lambda p: int(p["number"]) if p["number"].isdigit() else 999999,
     )
 
-def code_lines(code, index):
+def section_heading(text):
+    return [Paragraph(text, SECTION), Spacer(1, 2.2 * mm)]
+
+def example_box(example, label, index):
+    return [
+        Paragraph(label, BODY_BOLD),
+        Spacer(1, 1.2 * mm),
+        Table(
+            [[Preformatted(example, EXAMPLE)]],
+            colWidths=[CONTENT_W],
+            style=TableStyle([
+                ("BACKGROUND", (0, 0), (-1, -1), CODE_BG),
+                ("BOX", (0, 0), (-1, -1), 0.5, LINE),
+                ("LEFTPADDING", (0, 0), (-1, -1), 7),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+                ("TOPPADDING", (0, 0), (-1, -1), 6),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+            ]),
+        ),
+        Spacer(1, 3.5 * mm),
+    ]
+
+def code_block(code, index):
+    # Deliberately large. Never shrink the font just to squeeze a long solution
+    # into one page. ReportLab will naturally flow the block onto another page.
     lines = code.splitlines() or [""]
-    # Keep code comfortably readable. Long lines wrap instead of
-    # shrinking the whole solution down to tiny text.
-    font_size = 10.5
-    leading = 15
-    code_style = style(
-        f"simple_code_{index}",
-        "SimpleMono",
-        font_size,
-        leading,
-        BLACK
-    )
-    code_style.wordWrap = "CJK"
+    numbered = "\n".join(f"{n:>2}  {line}" for n, line in enumerate(lines, start=1))
 
-    # Each source line is a separate Paragraph, with a small visual gap
-    # between lines so the solution reads like normal source code.
-    result = []
-    for line in lines:
-        result.append(Paragraph(xml_escape(line) if line else " ", code_style))
-        result.append(Spacer(1, 3.5))
-    return result
+    return Table(
+        [[Preformatted(numbered, CODE)]],
+        colWidths=[CONTENT_W],
+        splitByRow=1,
+        style=TableStyle([
+            ("BACKGROUND", (0, 0), (-1, -1), CODE_BG),
+            ("BOX", (0, 0), (-1, -1), 0.6, LINE),
+            ("LEFTPADDING", (0, 0), (-1, -1), 8),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+            ("TOPPADDING", (0, 0), (-1, -1), 9),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 9),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ]),
+    )
 
 def footer(canvas, doc):
     canvas.saveState()
+    y = 11.5 * mm
     canvas.setStrokeColor(LINE)
-    canvas.line(18 * mm, 12 * mm, PAGE_W - 18 * mm, 12 * mm)
-    canvas.setFillColor(GRAY)
-    canvas.setFont("SimpleSans", 7)
-    canvas.drawString(18 * mm, 7 * mm, "My LeetCode Notes — Simple")
-    canvas.drawRightString(PAGE_W - 18 * mm, 7 * mm, str(doc.page))
+    canvas.setLineWidth(0.5)
+    canvas.line(LEFT, y + 3.8 * mm, PAGE_W - RIGHT, y + 3.8 * mm)
+    canvas.setFillColor(MUTED)
+    canvas.setFont("LC_Sans", 7.2)
+    canvas.drawString(LEFT, y, "My LeetCode Notes")
+    canvas.drawRightString(PAGE_W - RIGHT, y, str(doc.page))
     canvas.restoreState()
+
+def first_page(canvas, doc):
+    canvas.saveState()
+    canvas.setFillColor(ACCENT_SOFT)
+    canvas.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    canvas.setFillColor(ACCENT)
+    canvas.rect(0, PAGE_H - 46 * mm, PAGE_W, 46 * mm, fill=1, stroke=0)
+    canvas.setFillColor(WHITE)
+    canvas.setFont("LC_Bold", 11)
+    canvas.drawString(LEFT, PAGE_H - 15 * mm, "XERNIX")
+    canvas.setFont("LC_Bold", 26)
+    canvas.drawString(LEFT, PAGE_H - 30 * mm, "LeetCode Revision Notes")
+    canvas.setFont("LC_Sans", 9.5)
+    canvas.drawString(
+        LEFT,
+        PAGE_H - 38 * mm,
+        "Simple layout • complete statements • readable code"
+    )
+    canvas.restoreState()
+    footer(canvas, doc)
+
+def later_page(canvas, doc):
+    footer(canvas, doc)
 
 def build():
     problems = gather()
@@ -177,85 +290,111 @@ def build():
     doc = SimpleDocTemplate(
         str(OUTPUT),
         pagesize=A4,
-        leftMargin=18 * mm,
-        rightMargin=18 * mm,
-        topMargin=16 * mm,
-        bottomMargin=17 * mm,
+        leftMargin=LEFT,
+        rightMargin=RIGHT,
+        topMargin=TOP,
+        bottomMargin=BOTTOM,
         title="My LeetCode Notes - Simple",
         author="xernix-2007",
+        allowSplitting=1,
     )
 
     story = [
-        Spacer(1, 65 * mm),
+        Spacer(1, 53 * mm),
         Paragraph(
-            "MY LEETCODE",
-            style("cover_a", "SimpleBold", 12, 14, ACCENT),
-        ),
-        Spacer(1, 3 * mm),
-        Paragraph(
-            "INTERVIEW NOTES",
-            style("cover_b", "SimpleBold", 27, 31),
+            f"{len(problems)} problems",
+            style("cover_count", "LC_Bold", 18, 22, ACCENT),
         ),
         Spacer(1, 4 * mm),
         Paragraph(
-            f"{len(problems)} problems  |  Questions  |  Examples  |  Complexity  |  Solutions",
-            style("cover_c", size=9.5, leading=12, color=GRAY),
+            "Made for revision: read the whole problem, inspect every example, "
+            "check the constraints and complexity, then reproduce the solution.",
+            style("cover_body", size=10.5, leading=15),
         ),
-        Spacer(1, 82 * mm),
-        Paragraph(
-            "Focused notes for fast revision.",
-            style("cover_d", size=9, color=GRAY),
+        Spacer(1, 10 * mm),
+        Table(
+            [[Paragraph(
+                "Clean typography • comfortable spacing • large code",
+                style("cover_tag", "LC_Bold", 9, 12, ACCENT)
+            )]],
+            colWidths=[CONTENT_W],
+            style=TableStyle([
+                ("BACKGROUND", (0, 0), (-1, -1), WHITE),
+                ("BOX", (0, 0), (-1, -1), 0.6, LINE),
+                ("LEFTPADDING", (0, 0), (-1, -1), 8),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+                ("TOPPADDING", (0, 0), (-1, -1), 7),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
+            ]),
         ),
         PageBreak(),
     ]
 
-    for i, p in enumerate(problems):
-        story.extend([
-            Paragraph(f"{p['number']}. {p['title']}", TITLE),
-            Spacer(1, 2 * mm),
+    for index, p in enumerate(problems):
+        story += [
             Paragraph(
-                f"<b>Difficulty:</b> {xml_escape(p['difficulty'] or 'Unknown')}    "
-                f"<b>Language:</b> {xml_escape(p['language'])}",
-                META,
+                f"{xml_escape(p['number'])}. {xml_escape(p['title'])}",
+                TITLE
             ),
-            Spacer(1, 11 * mm),
-
-            Paragraph("QUESTION", SECTION),
-            Spacer(1, 1.5 * mm),
+            Spacer(1, 2.2 * mm),
             Paragraph(
-                xml_escape(p["question"] or "See the original problem statement."),
+                f"<b>{xml_escape(p['difficulty'] or 'Unknown')}</b>"
+                f"   •   {xml_escape(p['language'])}",
+                META
+            ),
+            Spacer(1, 7.5 * mm),
+        ]
+
+        story += section_heading("QUESTION")
+        if p["question"]:
+            for paragraph in p["question"]:
+                story += [
+                    Paragraph(xml_escape(paragraph), BODY),
+                    Spacer(1, 3.2 * mm),
+                ]
+        else:
+            story += [Paragraph(
+                "Problem statement not found in this README.",
+                BODY
+            )]
+
+        if p["examples"]:
+            story += section_heading("EXAMPLES")
+            for n, example in enumerate(p["examples"], start=1):
+                story += example_box(example, f"Example {n}", index)
+
+        if p["constraints"]:
+            story += section_heading("CONSTRAINTS")
+            for constraint in p["constraints"]:
+                story += [
+                    Paragraph("• " + xml_escape(constraint), BODY),
+                    Spacer(1, 1.4 * mm),
+                ]
+
+        if p["follow_up"]:
+            story += section_heading("FOLLOW-UP")
+            story += [
+                Paragraph(xml_escape(p["follow_up"]), BODY),
+                Spacer(1, 4 * mm),
+            ]
+
+        story += section_heading("COMPLEXITY")
+        story += [
+            Paragraph(
+                f"<b>Time:</b> {xml_escape(p['time'])}"
+                f"    <b>Space:</b> {xml_escape(p['space'])}",
                 BODY,
             ),
-            Spacer(1, 9 * mm),
+            Spacer(1, 5 * mm),
+        ]
 
-            Paragraph("EXAMPLE", SECTION),
-            Spacer(1, 1.5 * mm),
-            Paragraph(
-                xml_escape(p["example"] or "No example extracted from the README."),
-                style(f"example_{i}", "SimpleMono", 7.6, 10),
-            ),
-            Spacer(1, 9 * mm),
+        story += section_heading("SOLUTION")
+        story += [code_block(p["code"], index)]
 
-            Paragraph("COMPLEXITY", SECTION),
-            Spacer(1, 1.5 * mm),
-            Paragraph(
-                f"<b>Time:</b> {xml_escape(p['time'])}    "
-                f"<b>Space:</b> {xml_escape(p['space'])}",
-                BODY,
-            ),
-            Spacer(1, 9 * mm),
-
-            Paragraph("SOLUTION", SECTION),
-            Spacer(1, 2 * mm),
-
-            # Plain code: no dark UI, no syntax decoration, no card.
-            *code_lines(p["code"], i),
-        ])
-
-        if i != len(problems) - 1:
+        if index != len(problems) - 1:
             story.append(PageBreak())
 
-    doc.build(story, onFirstPage=footer, onLaterPages=footer)
+    doc.build(story, onFirstPage=first_page, onLaterPages=later_page)
     print(f"Generated {OUTPUT} with {len(problems)} problems.")
 
 if __name__ == "__main__":
