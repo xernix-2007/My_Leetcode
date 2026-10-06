@@ -93,6 +93,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0209-minimum-size-subarray-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0209-minimum-size-subarray-sum) |
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
 | [0239-sliding-window-maximum](https://github.com/xernix-2007/My_Leetcode/tree/master/0239-sliding-window-maximum) |
+| [0283-move-zeroes](https://github.com/xernix-2007/My_Leetcode/tree/master/0283-move-zeroes) |
 | [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
 | [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
 | [0724-find-pivot-index](https://github.com/xernix-2007/My_Leetcode/tree/master/0724-find-pivot-index) |
@@ -194,6 +195,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 ## Two Pointers
 |  |
 | ------- |
+| [0283-move-zeroes](https://github.com/xernix-2007/My_Leetcode/tree/master/0283-move-zeroes) |
 | [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
 | [3867-sum-of-gcd-of-formed-pairs](https://github.com/xernix-2007/My_Leetcode/tree/master/3867-sum-of-gcd-of-formed-pairs) |
 ## Greedy
