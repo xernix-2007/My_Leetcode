@@ -234,8 +234,10 @@ def code_block(code, index):
     lines = code.splitlines() or [""]
     numbered = "\n".join(f"{n:>2}  {line}" for n, line in enumerate(lines, start=1))
 
+    # Wrap only unusually long source lines. The font stays large and the
+    # original line remains readable instead of shrinking the whole solution.
     return Table(
-        [[Preformatted(numbered, CODE)]],
+        [[Preformatted(numbered, CODE, maxLineLength=86)]],
         colWidths=[CONTENT_W],
         splitByRow=1,
         style=TableStyle([
