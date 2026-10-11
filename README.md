@@ -94,6 +94,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0209-minimum-size-subarray-sum](https://github.com/xernix-2007/My_Leetcode/tree/master/0209-minimum-size-subarray-sum) |
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
 | [0239-sliding-window-maximum](https://github.com/xernix-2007/My_Leetcode/tree/master/0239-sliding-window-maximum) |
+| [0274-h-index](https://github.com/xernix-2007/My_Leetcode/tree/master/0274-h-index) |
 | [0283-move-zeroes](https://github.com/xernix-2007/My_Leetcode/tree/master/0283-move-zeroes) |
 | [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
 | [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
@@ -175,6 +176,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0215-kth-largest-element-in-an-array](https://github.com/xernix-2007/My_Leetcode/tree/master/0215-kth-largest-element-in-an-array) |
+| [0274-h-index](https://github.com/xernix-2007/My_Leetcode/tree/master/0274-h-index) |
 | [0455-assign-cookies](https://github.com/xernix-2007/My_Leetcode/tree/master/0455-assign-cookies) |
 | [0628-maximum-product-of-three-numbers](https://github.com/xernix-2007/My_Leetcode/tree/master/0628-maximum-product-of-three-numbers) |
 | [1051-height-checker](https://github.com/xernix-2007/My_Leetcode/tree/master/1051-height-checker) |
@@ -252,6 +254,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 ## Counting Sort
 |  |
 | ------- |
+| [0274-h-index](https://github.com/xernix-2007/My_Leetcode/tree/master/0274-h-index) |
 | [1051-height-checker](https://github.com/xernix-2007/My_Leetcode/tree/master/1051-height-checker) |
 ## Bubble Sort
 |  |
