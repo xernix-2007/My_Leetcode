@@ -66,6 +66,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0100-same-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0100-same-tree) |
 | [0101-symmetric-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0101-symmetric-tree) |
 | [0199-binary-tree-right-side-view](https://github.com/xernix-2007/My_Leetcode/tree/master/0199-binary-tree-right-side-view) |
+| [0543-diameter-of-binary-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0543-diameter-of-binary-tree) |
 | [0701-insert-into-a-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0701-insert-into-a-binary-search-tree) |
 ## Depth-First Search
 |  |
@@ -75,6 +76,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0100-same-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0100-same-tree) |
 | [0101-symmetric-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0101-symmetric-tree) |
 | [0199-binary-tree-right-side-view](https://github.com/xernix-2007/My_Leetcode/tree/master/0199-binary-tree-right-side-view) |
+| [0543-diameter-of-binary-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0543-diameter-of-binary-tree) |
 ## Binary Tree
 |  |
 | ------- |
@@ -83,6 +85,7 @@ I am continuously expanding this repository as I move from fundamentals toward h
 | [0100-same-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0100-same-tree) |
 | [0101-symmetric-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0101-symmetric-tree) |
 | [0199-binary-tree-right-side-view](https://github.com/xernix-2007/My_Leetcode/tree/master/0199-binary-tree-right-side-view) |
+| [0543-diameter-of-binary-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0543-diameter-of-binary-tree) |
 | [0701-insert-into-a-binary-search-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0701-insert-into-a-binary-search-tree) |
 ## Array
 |  |
@@ -286,4 +289,8 @@ I am continuously expanding this repository as I move from fundamentals toward h
 |  |
 | ------- |
 | [0319-bulb-switcher](https://github.com/xernix-2007/My_Leetcode/tree/master/0319-bulb-switcher) |
+## DP on Trees
+|  |
+| ------- |
+| [0543-diameter-of-binary-tree](https://github.com/xernix-2007/My_Leetcode/tree/master/0543-diameter-of-binary-tree) |
 <!---LeetCode Topics End-->
